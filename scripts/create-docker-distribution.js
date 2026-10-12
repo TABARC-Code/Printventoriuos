@@ -106,6 +106,7 @@ const filesToCopy = [
   'flatten-3mf-stl.js',
   'thumbnail-worker.js',
   'server-tls.js',
+  'server-security.js',
   'extension-inbox.js'
 ];
 

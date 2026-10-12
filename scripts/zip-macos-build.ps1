@@ -42,6 +42,7 @@ $rootFiles = @(
     "thumbnail-progress.js",
     "server-bridge.js",
     "server-tls.js",
+    "server-security.js",
     "mcp-server.js",
     "scan-worker.js",
     "parse-worker.js",

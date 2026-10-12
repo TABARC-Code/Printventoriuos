@@ -4,6 +4,14 @@ All notable changes contributed via pull request are documented in this file.
 
 ## [Unreleased]
 
+- Server Mode refuses cross-site browser requests. The WebSocket that carries every app call used to accept any origin, so a web page in the same browser could drive a local Printventory. CORS now echoes only permitted origins instead of `*`
+- Optional access token: set `PRINTVENTORY_ACCESS_TOKEN` (16+ characters) and HTTP, MCP and the WebSocket all require it. Open the app once with `?token=...` and it is remembered in an HttpOnly cookie. Without the variable, behaviour is unchanged and a warning is logged when the server is open to the network
+- `PRINTVENTORY_ALLOWED_ORIGINS` (comma separated) permits extra browser origins, for example a web-based MCP inspector. Browser extensions are allowed by default
+- Static serving no longer hands out `package-lock.json`, Dockerfiles, `scripts/`, `tests/`, database and key files
+- Slicer detection recognises Windows-style paths when running on Linux
+- Add-buttons next to Designer, Parent, License and Tag now have accessible names; keyboard focus ring and reduced-motion support added to the stylesheet
+- `npm run test:unit` runs every unit test file and reports all failures; a GitHub Actions workflow runs it on each push
+
 ## [2.2.25] - 2026-10-11
 
 - Force Missing Thumbnails tags files that fail because they have no preview, time out, or are too large. Stopping the job keeps those tags for files that already finished and leaves the file still running untagged

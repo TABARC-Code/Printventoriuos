@@ -247,6 +247,7 @@
       "vendor/**/*",
       "server-bridge.js",
       "server-tls.js",
+      "server-security.js",
       "extension-inbox.js",
       "mcp-server.js",
       "installer.nsh",

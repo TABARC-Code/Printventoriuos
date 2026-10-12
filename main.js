@@ -30,6 +30,7 @@ const extensionInbox = require('./extension-inbox');
 const { detectInstalledSlicers } = require('./slicer-detect');
 const { buildSlicerSpawnSpec, launchSlicerProcess, invalidSlicerPathError } = require('./slicer-launch');
 const { registerHelperBundleRoute } = require('./helper/install-bundle');
+const serverSecurity = require('./server-security');
 const {
   normalizeExcludeNames,
   shouldSkipDirectoryName,
@@ -702,18 +703,17 @@ function startHttpServer(port = 5000, localhostOnly = false, options = {}) {
   const HOST = localhostOnly ? '127.0.0.1' : '0.0.0.0';
   const forcePlainHttp = !!(options && options.forcePlainHttp);
 
-  // Enable CORS for remote access
-  expressApp.use((req, res, next) => {
-    res.header('Access-Control-Allow-Origin', '*');
-    res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
-    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization, MCP-Protocol-Version, Mcp-Session-Id, Last-Event-ID');
-    res.header('Access-Control-Expose-Headers', 'Mcp-Session-Id, MCP-Protocol-Version');
-    if (req.method === 'OPTIONS') {
-      res.sendStatus(200);
-    } else {
-      next();
-    }
-  });
+  // Origin policy, CORS and the optional access token live in server-security.js.
+  // The old version answered every origin with `*`, and the WebSocket (which CORS
+  // doesn't cover) accepted anyone. See IMPROVEMENTS.md for the long version.
+  const accessToken = serverSecurity.validateToken(process.env.PRINTVENTORY_ACCESS_TOKEN);
+  const allowedOrigins = serverSecurity.parseList(process.env.PRINTVENTORY_ALLOWED_ORIGINS);
+  expressApp.use(serverSecurity.createOriginPolicy({ allowedOrigins }));
+  expressApp.use(serverSecurity.createAccessGuard(accessToken));
+  expressApp.use(serverSecurity.createStaticBlocker());
+  if (!localhostOnly && !accessToken) {
+    console.warn('[Security] Server Mode is open to your network with no access token. Set PRINTVENTORY_ACCESS_TOKEN (16+ characters) to require one.');
+  }
 
   // JSON body parser for extension upload (large payloads for base64 file)
   expressApp.use(express.json({ limit: '50mb' }));
@@ -1171,7 +1171,10 @@ ${bridgeCode}
   });
 
   // Create WebSocket server for IPC bridge
-  wss = new WebSocket.Server({ server: httpServer });
+  wss = new WebSocket.Server({
+    server: httpServer,
+    verifyClient: serverSecurity.createWsVerifier({ token: accessToken, allowedOrigins })
+  });
   const pendingRequests = new Map();
   wsClients = new Set(); // Track all connected clients
 

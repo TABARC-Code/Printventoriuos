@@ -10,7 +10,7 @@ Printventory is an Electron-based desktop application for managing your 3D print
 
 Forked from Printventory by TechJeeper Designs (MIT). Maintained by TABARC-Code. Changes so far are small and each one is checked: a slicer-detection fix for Windows-style paths, `npm run test:unit` with a GitHub Actions workflow behind it, keyboard-focus and reduced-motion CSS, and a refreshed version number here. The plan for what comes next, including the things I couldn't verify, is in [IMPROVEMENTS.md](IMPROVEMENTS.md).
 
-One warning worth repeating: Server Mode has no login. Keep it on a network you trust.
+One warning worth repeating: Server Mode only asks for a login if you set `PRINTVENTORY_ACCESS_TOKEN`. Cross-site browser requests are refused either way, but keep it on a network you trust.
 
 ## Features
 
@@ -124,7 +124,7 @@ http://192.168.1.100:5000
     - Network shares must be mounted into the container (see [Docker Deployment](#docker-deployment-linux-server-mode))
 - **Network Access**: The server listens on all network interfaces (0.0.0.0) on port 5000
 - **Firewall**: You may need to allow Printventory through your firewall to access it from other devices
-- **Network Security**: Server Mode is designed for local network use. For production deployments, consider additional security measures
+- **Network Security**: Server Mode is designed for local network use. Set `PRINTVENTORY_ACCESS_TOKEN` (16 or more characters, for example `openssl rand -hex 24`) to require a token for the web UI, MCP and WebSocket. Open the app once at `http://host:5000/?token=YOUR_TOKEN`; it then keeps a cookie. Scripts and MCP clients send `Authorization: Bearer YOUR_TOKEN`. Without a token anyone on the network can use the server. Browser requests from other sites are refused either way; add trusted ones with `PRINTVENTORY_ALLOWED_ORIGINS` (comma separated). If you serve over plain HTTP the token and cookie travel unencrypted, so use HTTPS or a VPN on anything you don't fully trust. Behind a reverse proxy that rewrites the Host header, list your public origin in `PRINTVENTORY_ALLOWED_ORIGINS` or the browser UI will be refused
 - **HTTPS / SSL**: Open **Settings → HTTPS / SSL** to use custom PEM files, a self-signed LAN certificate, or Let's Encrypt (public DNS + inbound port 80). In server/Docker mode you can also set the **listen port** (default 5000; `https://` and `wss://` on that port). `PRINTVENTORY_PORT` seeds the port when unset. `PRINTVENTORY_TLS_*` environment variables override the certificate UI. Reverse proxies should leave in-app TLS off and upgrade WebSockets.
 - **STL Home Setting**: The STL Home setting follows the same path format rules as regular scanning. See the [STL Home Setting](#stl-home-setting-server-mode) section below for details on automatic and periodic scanning.
 

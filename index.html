@@ -444,7 +444,7 @@
             <option value="Unknown">Unknown</option>
           </select>
           <button type="button" class="list-button icon-button" data-field="designer" data-target="model-designer" data-mode="edit" title="Search existing designers">☰</button>
-          <button type="button" id="add-new-designer-button" class="icon-button">+</button>
+          <button type="button" id="add-new-designer-button" class="icon-button" aria-label="Add new designer" title="Add new designer">+</button>
         </div>
       </div>
       <div class="form-group mobile-detail-extra">
@@ -454,7 +454,7 @@
             <option value="">None</option>
           </select>
           <button type="button" class="list-button icon-button" data-field="parent" data-target="model-parent" data-mode="edit" title="Search existing parent models">☰</button>
-          <button type="button" id="add-new-parent-button" class="icon-button">+</button>
+          <button type="button" id="add-new-parent-button" class="icon-button" aria-label="Add new parent model" title="Add new parent model">+</button>
         </div>
       </div>
 
@@ -463,7 +463,7 @@
         <div class="designer-input-container">
           <select id="model-license" class="form-control"></select>
           <button type="button" class="list-button icon-button" data-field="license" data-target="model-license" data-mode="edit" title="Search existing licenses">☰</button>
-          <button type="button" id="add-new-license-button" class="icon-button">+</button>
+          <button type="button" id="add-new-license-button" class="icon-button" aria-label="Add new license" title="Add new license">+</button>
         </div>
       </div>
       <div class="form-group">
@@ -474,7 +474,7 @@
               <option value="">Select a tag...</option>
             </select>
             <button type="button" class="list-button icon-button" data-field="tag" data-target="tag-select" data-mode="edit" data-container="model-tags" title="Search existing tags">☰</button>
-            <button type="button" id="add-tag-button" class="icon-button">+</button>
+            <button type="button" id="add-tag-button" class="icon-button" aria-label="Add new tag" title="Add new tag">+</button>
           </div>
           <div id="model-tags" class="tags-list"></div>
         </div>
@@ -533,7 +533,7 @@
               <option value="">Select a tag...</option>
             </select>
             <button type="button" class="list-button icon-button" data-field="tag" data-target="bundle-tag-select" data-mode="edit" data-container="bundle-tags" title="Search existing tags">☰</button>
-            <button type="button" class="icon-button add-tag-button" title="Add a new tag to all models in this archive">+</button>
+            <button type="button" class="icon-button add-tag-button" title="Add a new tag to all models in this archive" aria-label="Add a new tag to all models in this archive">+</button>
           </div>
           <div id="bundle-tags" class="tags-list"></div>
         </div>
@@ -667,7 +667,7 @@
               <option value="">No Change</option>
               <option value="Unknown">Unknown</option>
             </select>
-            <button type="button" id="bulk-add-designer-button" class="icon-button">+</button>
+            <button type="button" id="bulk-add-designer-button" class="icon-button" aria-label="Add new designer" title="Add new designer">+</button>
           </div>
         </div>
         <div class="form-group">
@@ -677,7 +677,7 @@
               <option value="">No Change</option>
               <option value="none">None</option>
             </select>
-            <button type="button" id="bulk-add-parent-button" class="icon-button">+</button>
+            <button type="button" id="bulk-add-parent-button" class="icon-button" aria-label="Add new parent model" title="Add new parent model">+</button>
           </div>
         </div>
         <div class="form-group">
@@ -738,7 +738,7 @@
             <option value="Unknown">Unknown</option>
           </select>
           <button type="button" class="list-button icon-button" data-field="designer" data-target="multi-designer" data-mode="multi" title="Search existing designers">☰</button>
-          <button type="button" class="icon-button add-designer-button">+</button>
+          <button type="button" class="icon-button add-designer-button" aria-label="Add new designer" title="Add new designer">+</button>
         </div>
       </div>
       <div class="form-group">
@@ -749,7 +749,7 @@
             <option value="none">None</option>
           </select>
           <button type="button" class="list-button icon-button" data-field="parent" data-target="multi-parent" data-mode="multi" title="Search existing parent models">☰</button>
-          <button type="button" class="icon-button add-parent-button">+</button>
+          <button type="button" class="icon-button add-parent-button" aria-label="Add new parent model" title="Add new parent model">+</button>
         </div>
       </div>
       <div class="form-group">
@@ -757,7 +757,7 @@
         <div class="designer-input-container">
           <select id="multi-license" class="form-control"></select>
           <button type="button" class="list-button icon-button" data-field="license" data-target="multi-license" data-mode="multi" title="Search existing licenses">☰</button>
-          <button type="button" class="icon-button add-license-button">+</button>
+          <button type="button" class="icon-button add-license-button" aria-label="Add new license" title="Add new license">+</button>
         </div>
       </div>
       <div class="form-group">
@@ -768,7 +768,7 @@
               <option value="">Select a tag...</option>
             </select>
             <button type="button" class="list-button icon-button" data-field="tag" data-target="multi-tag-select" data-mode="multi" data-container="multi-tags" title="Search existing tags">☰</button>
-            <button type="button" class="icon-button add-tag-button">+</button>
+            <button type="button" class="icon-button add-tag-button" aria-label="Add new tag" title="Add new tag">+</button>
           </div>
           <div id="multi-tags" class="tags-list"></div>
           <div style="margin-top: 8px;">
@@ -2768,7 +2768,7 @@ docker run -d --name printventory-server -p 5000:5000 -v printventory-data:/root
             <label>Create New Tag</label>
             <div class="input-with-icon">
               <input type="text" id="new-tag-manager-name" placeholder="Enter tag name...">
-              <button type="button" id="add-tag-manager-button" class="icon-button">+</button>
+              <button type="button" id="add-tag-manager-button" class="icon-button" aria-label="Add new tag" title="Add new tag">+</button>
             </div>
           </div>
           <div class="form-group tag-manager-existing-group">
