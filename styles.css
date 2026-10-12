@@ -10071,3 +10071,34 @@ body.is-panel-resizing * {
   cursor: col-resize !important;
   user-select: none !important;
 }
+
+/* ---------------------------------------------------------------------------
+ * Keyboard focus and reduced motion (TABARC-Code, October 2026)
+ *
+ * Fifteen-odd rules above set `outline: none` and then, bless them, only some
+ * put something back. This is a safety net: anything clickable that doesn't
+ * already draw its own focus state gets a ring, but only for keyboard users,
+ * so mouse folk see no change. Inputs are left alone; they've got their own.
+ *
+ * Reduced motion: if the OS asks for less movement, give it. The grid
+ * animations are pretty, but "pretty" isn't worth someone feeling seasick.
+ * --------------------------------------------------------------------------- */
+button:focus-visible,
+[role="button"]:focus-visible,
+a:focus-visible,
+summary:focus-visible,
+[tabindex]:not([tabindex="-1"]):focus-visible {
+  outline: 2px solid var(--primary-accent, #00d4ff);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

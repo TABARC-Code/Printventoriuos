@@ -28,6 +28,7 @@
     "discord:announce": "node scripts/discord-announce-beta.js",
     "postinstall": "electron-builder install-app-deps",
     "test": "playwright test",
+    "test:unit": "node scripts/run-unit-tests.js",
     "test:bundle": "node bundle-keys.test.js",
     "test:print-events": "node print-events.test.js",
     "test:printers": "node printer-manager.test.js",

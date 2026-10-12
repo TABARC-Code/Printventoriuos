@@ -1,10 +1,16 @@
 # Printventory
 
-**Version 2.2.9**
+**Version 2.2.25**
 
 Printventory is an Electron-based desktop application for managing your 3D printing model collection. It helps you organize, catalog, and manage STL and 3MF files with powerful features including automatic scanning, thumbnail generation, tagging, and duplicate detection.
 
 ![Printventory Logo](logo.png)
+
+## About this fork (PrintVentorious)
+
+Forked from Printventory by TechJeeper Designs (MIT). Maintained by TABARC-Code. Changes so far are small and each one is checked: a slicer-detection fix for Windows-style paths, `npm run test:unit` with a GitHub Actions workflow behind it, keyboard-focus and reduced-motion CSS, and a refreshed version number here. The plan for what comes next, including the things I couldn't verify, is in [IMPROVEMENTS.md](IMPROVEMENTS.md).
+
+One warning worth repeating: Server Mode has no login. Keep it on a network you trust.
 
 ## Features
 
@@ -54,9 +60,9 @@ See [CHANGELOG.md](CHANGELOG.md) for recent feature additions and migration note
 ### Pre-built Releases
 
 Download the latest release for your platform:
-- **Windows**: `Printventory-Setup-2.2.9.exe` (NSIS installer)
+- **Windows**: `Printventory-Setup-2.2.25.exe` (NSIS installer)
 - **macOS**: Universal binary (Intel and Apple Silicon) DMG
-- **Linux/Docker**: `printventory/printventory:latest` on Docker Hub (or `printventory-docker-2.2.9.zip`)
+- **Linux/Docker**: `printventory/printventory:latest` on Docker Hub (or `printventory-docker-2.2.25.zip`)
 
 ### Data Storage
 
