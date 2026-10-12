@@ -4036,6 +4036,10 @@ async function createWindow() {
           click: () => mainWindow.webContents.send('open-printer-management')
         },
         {
+          label: 'Farm Cost Calculator',
+          click: () => mainWindow.webContents.send('open-farm-cost')
+        },
+        {
           label: 'Parts Manager',
           click: () => mainWindow.webContents.send('open-parts-stock')
         },
@@ -4354,6 +4358,10 @@ function createApplicationMenu() {
         {
           label: 'Printer Manager',
           click: () => mainWindow.webContents.send('open-printer-management')
+        },
+        {
+          label: 'Farm Cost Calculator',
+          click: () => mainWindow.webContents.send('open-farm-cost')
         },
         {
           label: 'Parts Manager',
@@ -6560,6 +6568,16 @@ async function getPrintEventsHandler(event, modelId) {
   }
 }
 ipcMain.handle('get-print-events', getPrintEventsHandler);
+
+async function getPrintOutcomeStatsHandler() {
+  try {
+    return printEvents.getOutcomeStats(db);
+  } catch (error) {
+    console.error('Error getting print outcome stats:', error);
+    return [];
+  }
+}
+ipcMain.handle('get-print-outcome-stats', getPrintOutcomeStatsHandler);
 
 async function logPrintEventHandler(event, payload) {
   try {
@@ -13796,6 +13814,10 @@ ipcMain.on('open-filament-manager', (event) => {
 
 ipcMain.on('open-printer-management', (event) => {
   mainWindow.webContents.send('open-printer-management');
+});
+
+ipcMain.on('open-farm-cost', (event) => {
+  mainWindow.webContents.send('open-farm-cost');
 });
 
 ipcMain.on('open-parts-stock', (event) => {

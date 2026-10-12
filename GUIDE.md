@@ -123,6 +123,18 @@ Printventory offers three different view modes to suit your workflow:
 
 Switch between view modes using the view controls in the interface.
 
+## Print Farm Cost Calculator
+
+Open it from the calculator button on the sidebar, or the Farm Cost Calculator entry in the Tools menu. It opens full screen; the corner button shrinks it.
+
+**Set up first (Farm setup tab).** Enter your electricity rate and hourly rate, then for each printer its price, resale value, lifetime in print hours, power draw and planned hours a month. Give each filament a spool price and weight. Until you save something, the Quote tab warns that the numbers are placeholders. Printers and filaments come from Printer Manager and Filament Manager, so add them there first.
+
+**Quote tab.** Pick a printer (or the farm average), enter the slicer's print time and the grams per plate, then choose a pricing method: target margin, markup, or a price you've already decided on. You get the price per item, cost, profit, margin and markup (a 50% markup is only a 33% margin), and profit per machine hour. The "What if" table shows how the profit moves if failures, electricity or filament get dearer. With two or more plates and two or more printers, the planner shows how to split them and when the batch finishes. Copy quote as text puts a summary on your clipboard.
+
+**Failure rate.** "Use my history" on the Farm setup tab fills in the rate from your logged prints (cancelled prints don't count, and it needs at least 10 prints before it will give a number).
+
+Settings are saved in the library's settings table and can be exported as JSON. It's a quoting aid: slicer times are estimates, lifetimes and failure rates are assumptions, and tax isn't modelled.
+
 ## Print status and history
 
 Each model has a **status** (Unprinted, Want, Queued, Printing, Printed, Failed) and an optional **print log**.

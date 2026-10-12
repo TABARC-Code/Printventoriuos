@@ -563,6 +563,7 @@
     'savePart': 'save-part',
     'deletePart': 'delete-part',
     'getAllPrinters': 'get-all-printers',
+    'getPrintOutcomeStats': 'get-print-outcome-stats',
     'discoverPrinters': 'discover-printers',
     'getLocalScanNetworks': 'get-local-scan-networks',
     'getPrinterStatuses': 'get-printer-statuses',
@@ -710,6 +711,10 @@
 
   window.electron.onOpenPrinterManagement = function(callback) {
     window.electron.on('open-printer-management', callback);
+  };
+
+  window.electron.onOpenFarmCost = function(callback) {
+    window.electron.on('open-farm-cost', callback);
   };
 
   window.electron.onOpenPartsStock = function(callback) {

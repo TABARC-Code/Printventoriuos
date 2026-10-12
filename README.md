@@ -36,6 +36,7 @@ One warning worth repeating: Server Mode only asks for a login if you set `PRINT
 - **MCP Server**: Connect a local AI agent to search the library, read model details, and write thumbnails (see [MCP Server](#mcp-server))
 - **Multi-Edit Mode**: Select and edit multiple models simultaneously for batch operations
 - **Duplicate Detection**: Find duplicate files based on content hash with visual comparison, optionally limited to the current library filters
+- **Print Farm Cost Calculator**: Price jobs from each printer's own cost profile, see profit per machine hour, split batches across the farm, and use your logged prints for a real failure rate (see [docs/farm-cost-research.md](docs/farm-cost-research.md))
 - **Print Roulette**: Randomly select models from your collection
 - **AI Tagging**: Automated tag suggestions using AI
 - **3D bundle preview**: Open every STL/3MF in a folder or ZIP in a single preview layout

@@ -15,6 +15,7 @@
   <link rel="stylesheet" href="theme.css">
   <link rel="stylesheet" href="styles.css">
   <link rel="stylesheet" href="parts-stock.css">
+  <link rel="stylesheet" href="farm-cost.css">
   <link rel="stylesheet" href="printer-management.css">
   <link rel="stylesheet" href="notes-markdown.css">
   <link rel="stylesheet" href="preview-wall.css">
@@ -146,6 +147,9 @@
       </button>
       <button id="printer-button" class="icon-button" title="Printer - Printer Manager">
         <img src="printer.png" alt="Printer Manager">
+      </button>
+      <button id="farm-cost-button" class="icon-button" title="Farm Cost - Print Farm Cost Calculator" aria-label="Print Farm Cost Calculator">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="3" width="14" height="18" rx="2"/><rect x="8" y="6" width="8" height="3" rx="0.5"/><path d="M8 13h.01M12 13h.01M16 13h.01M8 17h.01M12 17h.01M16 17h.01"/></svg>
       </button>
       <button id="roulette-button" class="icon-button" title="Roulette - Print Roulette">
         <img src="roulette.png" alt="Print Roulette">
@@ -2751,6 +2755,26 @@ docker run -d --name printventory-server -p 5000:5000 -v printventory-data:/root
         </form>
       </dialog>
 
+      <dialog id="farm-cost-dialog" class="modal farm-cost-dialog" aria-labelledby="farm-cost-title">
+        <form id="farm-cost-form" onsubmit="return false">
+          <div class="farm-cost-header">
+            <div class="farm-cost-header-row">
+              <h3 id="farm-cost-title">Print Farm Cost Calculator</h3>
+              <button type="button" id="farm-cost-fullscreen-toggle" class="icon-button modal-fullscreen-icon-btn" title="Exit Full Screen" aria-label="Exit Full Screen" aria-pressed="true">
+                <svg class="fullscreen-icon-expand" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 3H5a2 2 0 0 0-2 2v3M21 8V5a2 2 0 0 0-2-2h-3M3 16v3a2 2 0 0 0 2 2h3M16 21h3a2 2 0 0 0 2-2v-3"/></svg>
+                <svg class="fullscreen-icon-shrink" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 3v3a2 2 0 0 1-2 2H3M21 8h-3a2 2 0 0 1-2-2V3M3 16h3a2 2 0 0 1 2 2v3M16 21v-3a2 2 0 0 1 2-2h3"/></svg>
+              </button>
+            </div>
+            <p class="setting-description">Price a job from your own printers, filament and running costs, then see what it earns per machine hour. Uses the printers and filaments already in Printventory, and your logged prints for a real failure rate.</p>
+          </div>
+          <div id="farm-cost-body"></div>
+          <div class="farm-cost-footer">
+            <span id="farm-cost-status" role="status" aria-live="polite"></span>
+            <button type="button" id="farm-cost-close" class="printer-btn-close">Close</button>
+          </div>
+        </form>
+      </dialog>
+
       <dialog id="tag-manager-dialog" class="modal">
         <form method="dialog">
           <div class="modal-header-row">
@@ -2978,6 +3002,8 @@ docker run -d --name printventory-server -p 5000:5000 -v printventory-data:/root
   <script src="filament.js"></script>
   <script src="printer-management.js"></script>
   <script src="parts-stock.js"></script>
+  <script src="farm-cost-lib.js"></script>
+  <script src="farm-cost.js"></script>
   <script src="print-history.js"></script>
   <script type="module" src="slicer.js"></script>
   <script src="guide.js"></script>

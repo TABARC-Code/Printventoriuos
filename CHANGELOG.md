@@ -4,6 +4,9 @@ All notable changes contributed via pull request are documented in this file.
 
 ## [Unreleased]
 
+- New Print Farm Cost Calculator (Printer Manager's neighbour on the sidebar and the Tools menu). Prices a job from each printer's own cost profile, shows where the money goes and what the job earns per machine hour, splits a multi-plate batch across your printers, and can use your logged prints for a real failure rate. See `docs/farm-cost-research.md` for what it was based on
+- `get-print-outcome-stats` returns logged print outcomes per printer, weighted by quantity
+
 - Server Mode refuses cross-site browser requests. The WebSocket that carries every app call used to accept any origin, so a web page in the same browser could drive a local Printventory. CORS now echoes only permitted origins instead of `*`
 - Optional access token: set `PRINTVENTORY_ACCESS_TOKEN` (16+ characters) and HTTP, MCP and the WebSocket all require it. Open the app once with `?token=...` and it is remembered in an HttpOnly cookie. Without the variable, behaviour is unchanged and a warning is logged when the server is open to the network
 - `PRINTVENTORY_ALLOWED_ORIGINS` (comma separated) permits extra browser origins, for example a web-based MCP inspector. Browser extensions are allowed by default

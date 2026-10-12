@@ -21,6 +21,10 @@ This is a fork of Printventory (MIT, original by TechJeeper Designs). The plan b
 
 Before the install step, 9 test files failed. Eight were just missing `fflate`, `jszip` and `better-sqlite3`. One was the real bug above. Worth knowing if you ever wonder why a fresh clone "fails".
 
+## Added later: Print Farm Cost Calculator
+
+Researched existing calculators (see `docs/farm-cost-research.md`, which separates what I read from what I only saw in search results) and built one around a print farm: per-printer cost profiles, overhead spread over planned machine hours, failure allowance that only scales what a failure wastes, failure rate from logged prints, margin-based pricing alongside markup, profit per machine hour, a batch planner and a what-if table. The maths is in `farm-cost-lib.js` with 19 hand-checked tests; the dialog has a Playwright smoke test (`farm-cost-ui.smoke.cjs`). Not checked: the Electron desktop shell, and a long list of nice-to-haves (3MF auto-fill, time-of-use tariffs, expense tracking) that are in the research notes.
+
 ## Function
 
 1. ~~**Authentication for Server Mode.**~~ **Done, opt-in** (see above). The rest of this item stays true: it is off by default, so the default is still an open server on your network. Making it on by default would break every existing Docker setup in one go; that's a release-notes decision, not a quiet one. Original note: This is the big one. The HTTP server binds `0.0.0.0` in server mode, sets `Access-Control-Allow-Origin: *`, and I found no login or token check in front of the routes. The README says "for local network use", which is honest, but it isn't a control. Proposal: an optional access token (env var and settings field), checked by one middleware, with the bridge sending it. Opt-in first so nobody's existing Docker setup breaks.

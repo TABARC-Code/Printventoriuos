@@ -75,7 +75,7 @@ window._electronRealEventHandlers = {};
 window._electronPendingEvents = {};
 const earlyEventChannels = [
   'open-theme-settings', 'clear-new-flags', 'regenerate-thumbnails', 'generate-missing-thumbnails',
-  'start-print-roulette', 'open-dedup', 'open-organize-library', 'open-tag-manager', 'open-filament-manager', 'open-printer-management', 'open-parts-stock', 'open-stats',
+  'start-print-roulette', 'open-dedup', 'open-organize-library', 'open-tag-manager', 'open-filament-manager', 'open-printer-management', 'open-farm-cost', 'open-parts-stock', 'open-stats',
   'open-backup-restore', 'open-ai-config', 'open-file-type-settings', 'open-performance-settings',
   'open-slicer-settings', 'open-browser-extension-settings', 'open-mcp-server-settings', 'open-https-settings', 'open-purge-models',
   'open-metadata-editor', 'open-system-report', 'open-manage-thumbnails',
@@ -7809,6 +7809,13 @@ async function createServerMenuBar() {
         window.openPrinterManagement();
       } else {
         window.electron.send('open-printer-management');
+      }
+    }},
+    { label: 'Farm Cost Calculator', action: () => {
+      if (typeof window.openFarmCost === 'function') {
+        window.openFarmCost();
+      } else {
+        window.electron.send('open-farm-cost');
       }
     }},
     { label: 'Parts Manager', action: () => {
