@@ -4,6 +4,16 @@ All notable changes contributed via pull request are documented in this file.
 
 ## [Unreleased]
 
+- New **Display and accessibility** settings (the "Aa" button at the top of the sidebar, the Tools menu, or the web menu). Choices apply immediately and are remembered on this device only, so people sharing one library in Server Mode keep their own:
+  - Font: Standard (Inter), Easy-read (Atkinson Hyperlegible), Lexend, or the system font. All bundled from Google Fonts with their licences
+  - Text size 100, 115, 130 or 150 percent (the sidebar grows with it so dropdowns don't clip), plus window zoom in the desktop app
+  - Roomy letter, word and line spacing
+  - Colour-blind safe status colours (Okabe and Ito palette) with a shape before each status, so colour is never the only clue
+  - High contrast (brighter grey text and stronger borders; axe's stricter 7:1 contrast failures drop from 71 to 15 on the main screen and dialogs)
+  - Larger click targets (44 px), a strong keyboard focus ring, underlined links, and a manual reduce-animation switch
+- A "Skip to the model grid" link is now the first stop for keyboard users
+- Three more low-contrast greys fixed (progress status, duplicate file size, directory label)
+
 - Button text is readable on every accent colour. White text on the default cyan was 1.77:1 (the usual minimum is 4.5:1), which made Scan Directory, Save, Add and about 100 other buttons hard to read; of 275 buttons measured, 111 failed before and 2 after (those two sit on a translucent tile and are fine in practice). The text colour now follows the theme accent automatically
 - An empty library and a search or filter that matches nothing now say so and offer the next step (Scan a folder, Clear all filters) instead of showing a blank grid
 - Scrollable panels with nothing focusable inside can now be reached and scrolled with the keyboard. The sidebar has a page heading and landmark for screen readers; the printer type filter has a proper label; one low-contrast heading in De-Dup is fixed

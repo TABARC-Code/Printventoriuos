@@ -3860,7 +3860,7 @@ dialog:not([open]) {
 
 #progress-status {
   font-size: 14px;
-  color: #666;
+  color: #9ca3af;
   margin-top: 10px;
 }
 
@@ -4580,7 +4580,7 @@ dialog:not([open]) {
 
 .duplicate-file-size {
   margin-left: auto;
-  color: #777;
+  color: #9ca3af;
 }
 
 .duplicate-file.zip-entry {
@@ -7542,7 +7542,7 @@ dialog:not([open]) {
 }
 
 .directory-label {
-  color: #666;
+  color: #9ca3af;
 }
 
 .directory-link {

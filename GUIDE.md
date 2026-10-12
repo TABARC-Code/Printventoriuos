@@ -123,6 +123,19 @@ Printventory offers three different view modes to suit your workflow:
 
 Switch between view modes using the view controls in the interface.
 
+## Display and accessibility
+
+Open it with the **Aa** button at the top of the sidebar, or Display and Accessibility in the Tools menu. Everything applies as you click, and **Reset to standard** undoes it all. Your choices are saved on this device only (in the browser or app), not in the library, so other people using the same Server Mode library keep their own settings.
+
+- **Font.** Standard is Inter. Easy-read is Atkinson Hyperlegible, designed so look-alike characters (I, l, 1, b, d, p, q) are easier to tell apart. Lexend is spaced for reading fluency. The research on fonts and dyslexia is mixed, so treat these as things to try, not cures.
+- **Text size** makes writing larger without rearranging the screen. For everything at once use your browser's zoom (Ctrl and +), or **Window size** in the desktop app.
+- **Spacing** adds room between letters, words and lines.
+- **Status colours.** The colour-blind safe palette uses the Okabe and Ito colours and puts a shape before each status (a tick for printed, a cross for failed, and so on), so colour is never the only clue.
+- **Contrast.** High contrast brightens grey text and strengthens faint borders.
+- **Controls and movement.** Larger click targets (at least 44 px), a thick keyboard focus ring, underlined links, and a switch to stop animation. If your device asks for reduced motion, that is respected anyway.
+
+Keyboard users: the first Tab stop on the page is a "Skip to the model grid" link.
+
 ## Print Farm Cost Calculator
 
 Open it from the calculator button on the sidebar, or the Farm Cost Calculator entry in the Tools menu. It opens full screen; the corner button shrinks it.

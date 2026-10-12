@@ -4040,6 +4040,10 @@ async function createWindow() {
           click: () => mainWindow.webContents.send('open-farm-cost')
         },
         {
+          label: 'Display and Accessibility',
+          click: () => mainWindow.webContents.send('open-display-prefs')
+        },
+        {
           label: 'Parts Manager',
           click: () => mainWindow.webContents.send('open-parts-stock')
         },
@@ -4362,6 +4366,10 @@ function createApplicationMenu() {
         {
           label: 'Farm Cost Calculator',
           click: () => mainWindow.webContents.send('open-farm-cost')
+        },
+        {
+          label: 'Display and Accessibility',
+          click: () => mainWindow.webContents.send('open-display-prefs')
         },
         {
           label: 'Parts Manager',
@@ -13818,6 +13826,20 @@ ipcMain.on('open-printer-management', (event) => {
 
 ipcMain.on('open-farm-cost', (event) => {
   mainWindow.webContents.send('open-farm-cost');
+});
+
+ipcMain.on('open-display-prefs', (event) => {
+  mainWindow.webContents.send('open-display-prefs');
+});
+
+// Whole-window zoom for the desktop app (Display and accessibility > Window size).
+// Only the steps the dialog offers are accepted; anything else resets to 100%.
+ipcMain.handle('set-ui-zoom', async (event, percent) => {
+  const allowed = [100, 110, 125, 150];
+  const p = allowed.includes(Number(percent)) ? Number(percent) : 100;
+  const win = BrowserWindow.fromWebContents(event.sender) || mainWindow;
+  if (win && !win.isDestroyed()) win.webContents.setZoomFactor(p / 100);
+  return p;
 });
 
 ipcMain.on('open-parts-stock', (event) => {

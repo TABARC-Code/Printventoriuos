@@ -25,6 +25,20 @@ Before the install step, 9 test files failed. Eight were just missing `fflate`, 
 
 Researched existing calculators (see `docs/farm-cost-research.md`, which separates what I read from what I only saw in search results) and built one around a print farm: per-printer cost profiles, overhead spread over planned machine hours, failure allowance that only scales what a failure wastes, failure rate from logged prints, margin-based pricing alongside markup, profit per machine hour, a batch planner and a what-if table. The maths is in `farm-cost-lib.js` with 19 hand-checked tests; the dialog has a Playwright smoke test (`farm-cost-ui.smoke.cjs`). Not checked: the Electron desktop shell, and a long list of nice-to-haves (3MF auto-fill, time-of-use tariffs, expense tracking) that are in the research notes.
 
+## Added later: display and accessibility options
+
+Asked for dyslexia and colour-blind friendly choices, easy-read fonts, bigger text and a more ergonomic layout. Built as one settings dialog (the "Aa" button), stored per device in the browser or app so people sharing a Server Mode library don't impose their needs on each other.
+
+How it works, and what was measured:
+
+- **Fonts.** Inter (standard), Atkinson Hyperlegible and Lexend, all downloaded from Google Fonts and bundled with their OFL licences. Chromium test confirms the files load from the app and nothing goes to Google.
+- **Larger text.** The interface sets sizes in px in about 350 places, so a root font-size change alone does nothing and CSS `zoom` breaks the layout (the sidebar's 100vh becomes 150vh and the bottom is cut off; I tried it). Instead `scripts/gen-ui-prefs-css.js` generates override rules that only apply when the option is on, leaving the original stylesheets untouched. A unit test fails if the generated file drifts from the sources.
+- **Colour-blind palette.** Okabe and Ito colours, with a shape before every status. Measured by simulating protanopia, deuteranopia and tritanopia (Machado 2009 matrices, CIEDE2000, checked against a published test pair): the closest pair anywhere in the set is further apart than in the original colours for all three types (12.2 vs 10.0, 11.6 vs 7.6, 10.9 vs 9.3). Printed against failed, the pair that matters most, is 18 to 63. It is not better for every pair: the old printed/failed pair was actually further apart under protanopia (26 vs 18) because the old green was lighter. The gain is modest, and the shapes and text labels do most of the work. This needs testing with real people.
+- **High contrast.** Generated from the same stylesheets. axe's strict 7:1 contrast failures fall from 71 to 15 across the main screen and 42 dialogs.
+- **Ergonomics.** 44 px targets, a strong focus ring, underlined links, manual reduce-motion, a skip link, and window zoom in the desktop app.
+
+Not done, and why: mirroring the layout for left-handed use (the sidebar offsets are baked into dozens of rules; I won't guess at that without a way to test it with a real library); presets such as "dyslexia" or "low vision" (they would be guesses about what people need, so I'd want input from people who use these options); the desktop window-zoom call is one small IPC handler I couldn't run because there's no Electron here; and the tile grid's arrow-key navigation, as before.
+
 ## Added later: UI/UX pass
 
 Ran an automated accessibility audit (axe-core) over the main screen and all 42 dialogs, then measured every button's text contrast by hand. Findings and fixes:

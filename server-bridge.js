@@ -713,6 +713,10 @@
     window.electron.on('open-printer-management', callback);
   };
 
+  window.electron.onOpenDisplayPrefs = function(callback) {
+    window.electron.on('open-display-prefs', callback);
+  };
+
   window.electron.onOpenFarmCost = function(callback) {
     window.electron.on('open-farm-cost', callback);
   };
