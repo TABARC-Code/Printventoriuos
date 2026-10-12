@@ -4,6 +4,9 @@ All notable changes contributed via pull request are documented in this file.
 
 ## [Unreleased]
 
+- New customer **quote page** at `/kiosk` (Server Mode), off until switched on in **Quote requests**. A customer picks an item you offer, chooses a quantity, sees a price from the Farm Cost Calculator, leaves an email address, and the request arrives in the new Quote requests inbox (and optionally a webhook). It is a separate, narrow interface: five small endpoints, no access to the admin WebSocket, bodies capped at 8 KB, per-device rate limits, and nothing stored on the customer's device (no cookies, local storage or session). Cost and profit are shown only to you. Requests are deleted after a retention period you set (default 180 days). See `docs/kiosk-quotes.md`
+- It refuses to quote until the calculator has a printer with a purchase price and a filament with a spool price, rather than quote placeholder numbers to the public
+
 - New **Display and accessibility** settings (the "Aa" button at the top of the sidebar, the Tools menu, or the web menu). Choices apply immediately and are remembered on this device only, so people sharing one library in Server Mode keep their own:
   - Font: Standard (Inter), Easy-read (Atkinson Hyperlegible), Lexend, or the system font. All bundled from Google Fonts with their licences
   - Text size 100, 115, 130 or 150 percent (the sidebar grows with it so dropdowns don't clip), plus window zoom in the desktop app

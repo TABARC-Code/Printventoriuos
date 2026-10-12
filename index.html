@@ -19,6 +19,7 @@
   <link rel="stylesheet" href="styles.css">
   <link rel="stylesheet" href="parts-stock.css">
   <link rel="stylesheet" href="farm-cost.css">
+  <link rel="stylesheet" href="kiosk-admin.css">
   <link rel="stylesheet" href="printer-management.css">
   <link rel="stylesheet" href="notes-markdown.css">
   <link rel="stylesheet" href="preview-wall.css">
@@ -2766,6 +2767,18 @@ docker run -d --name printventory-server -p 5000:5000 -v printventory-data:/root
         </form>
       </dialog>
 
+      <dialog id="kiosk-admin-dialog" class="modal" aria-labelledby="kiosk-admin-title">
+        <form method="dialog" onsubmit="return false">
+          <h3 id="kiosk-admin-title">Quote requests</h3>
+          <p class="ka-lead">A simple customer page where people pick an item, get a price and leave their email address. Requests arrive here. The page is off until you turn it on in Settings.</p>
+          <div id="kiosk-admin-body"></div>
+          <div class="ka-footer">
+            <span id="ka-status" role="status" aria-live="polite"></span>
+            <button type="button" id="kiosk-admin-close" class="printer-btn-close">Close</button>
+          </div>
+        </form>
+      </dialog>
+
       <dialog id="display-prefs-dialog" class="modal" aria-labelledby="display-prefs-title">
         <form method="dialog" onsubmit="return false">
           <h3 id="display-prefs-title">Display and accessibility</h3>
@@ -3025,6 +3038,7 @@ docker run -d --name printventory-server -p 5000:5000 -v printventory-data:/root
   <script src="ui-prefs.js"></script>
   <script src="farm-cost-lib.js"></script>
   <script src="farm-cost.js"></script>
+  <script src="kiosk-admin.js"></script>
   <script src="print-history.js"></script>
   <script type="module" src="slicer.js"></script>
   <script src="guide.js"></script>

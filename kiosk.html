@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Get a print quote</title>
+  <link rel="stylesheet" href="/kiosk/fonts/inter.css">
+  <link rel="stylesheet" href="/kiosk/app.css">
+</head>
+<body>
+  <!-- This page stores nothing on the device: no cookies, no local storage, no session. See kiosk-core.js. -->
+  <header class="k-header">
+    <img class="k-logo" src="/kiosk/logo.png" alt="" width="48" height="48">
+    <h1 id="k-title">Get a print quote</h1>
+    <div class="k-textsize" role="group" aria-label="Text size">
+      <button type="button" id="k-smaller" aria-label="Smaller text">A-</button>
+      <button type="button" id="k-larger" aria-label="Larger text">A+</button>
+    </div>
+  </header>
+  <main id="k-main" tabindex="-1" aria-live="polite"></main>
+  <div id="k-idle" class="k-idle" role="alertdialog" aria-modal="true" aria-labelledby="k-idle-title" hidden>
+    <div class="k-idle-box">
+      <h2 id="k-idle-title">Are you still there?</h2>
+      <p>This screen will clear itself in <strong id="k-idle-count">15</strong> seconds so nobody else sees what you typed.</p>
+      <button type="button" id="k-idle-stay" class="k-btn">I am still here</button>
+    </div>
+  </div>
+  <noscript><p class="k-noscript">This page needs JavaScript to work.</p></noscript>
+  <script src="/kiosk/app.js"></script>
+</body>
+</html>

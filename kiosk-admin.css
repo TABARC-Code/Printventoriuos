@@ -1,0 +1,48 @@
+/* Quote requests (admin). Same dark look as the other manager dialogs. */
+#kiosk-admin-dialog { width: min(900px, 94vw); max-height: 92vh; background: rgba(24, 24, 38, 0.98); color: #fff; padding: 20px 24px; }
+#kiosk-admin-dialog * { box-sizing: border-box; }
+#kiosk-admin-dialog form { margin: 0; display: flex; flex-direction: column; max-height: calc(92vh - 40px); }
+#kiosk-admin-dialog h3 { margin: 0 0 4px; font-size: 20px; }
+#kiosk-admin-dialog h4 { margin: 0 0 10px; }
+.ka-lead { margin: 0 0 12px; color: #cbd5e1; font-size: 13px; line-height: 1.5; }
+#kiosk-admin-body { flex: 1; min-height: 0; overflow-y: auto; padding-right: 6px; }
+.ka-tabs { display: flex; gap: 6px; border-bottom: 1px solid rgba(255, 255, 255, 0.14); margin-bottom: 14px; }
+#kiosk-admin-dialog .ka-tab { display: inline-flex; align-items: center; gap: 8px; width: auto; margin: 0; padding: 10px 16px; background: none; border: none; border-radius: 0; border-bottom: 2px solid transparent; color: #cbd5e1; font-size: 14px; cursor: pointer; overflow: visible; }
+#kiosk-admin-dialog .ka-tab.active { color: #fff; border-bottom-color: var(--primary-accent, #00d4ff); background: none; }
+#kiosk-admin-dialog .ka-tab:hover { background: rgba(255, 255, 255, 0.06); color: #fff; }
+.ka-badge { display: inline-block; min-width: 22px; padding: 0 7px; border-radius: 11px; background: var(--primary-accent, #00d4ff); color: var(--primary-accent-text, #07121a); font-size: 12px; font-weight: 700; text-align: center; }
+.ka-badge[hidden] { display: none; }
+.ka-card { padding: 14px 16px; margin: 0 0 12px; border-radius: 12px; background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.14); }
+.ka-card p { margin: 6px 0; font-size: 14px; }
+.ka-card-head { display: flex; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
+.ka-muted, .ka-hint { color: #cbd5e1; font-size: 12.5px; line-height: 1.5; }
+.ka-msg { padding: 8px 10px; border-radius: 8px; background: rgba(255, 255, 255, 0.07); white-space: pre-wrap; }
+.ka-bad { color: #ffb4a6; font-weight: 600; }
+.ka-row { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; margin: 10px 0 0; }
+.ka-two { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+@media (max-width: 640px) { .ka-two { grid-template-columns: 1fr; } }
+.ka-field, .ka-switch { display: block; margin: 0 0 12px; }
+.ka-label { display: block; font-size: 12.5px; color: #e2e8f0; margin-bottom: 4px; }
+.ka-field input, .ka-field select, .ka-field textarea, .ka-row select, .ka-form input[type="search"] { width: 100%; padding: 8px 10px; border-radius: 8px; border: 1px solid rgba(255, 255, 255, 0.25); background: rgba(255, 255, 255, 0.07); color: #fff; font: inherit; font-size: 14px; }
+.ka-row select { width: auto; min-width: 150px; }
+.ka-field select option, .ka-row select option { color: #000; }
+.ka-switch { display: flex; gap: 12px; align-items: flex-start; cursor: pointer; }
+.ka-switch input { width: 22px; height: 22px; margin: 2px 0 0; flex: none; }
+.ka-switch strong { display: block; font-size: 14.5px; }
+.ka-switch small { display: block; color: #cbd5e1; font-size: 12.5px; }
+.ka-check { display: flex; align-items: center; gap: 8px; margin: 6px 0; }
+#kiosk-admin-dialog .ka-btn { display: inline-flex; width: auto; margin: 0; padding: 9px 16px; border-radius: 10px; border: 1px solid transparent; background: var(--primary-accent, #00d4ff); color: var(--primary-accent-text, #07121a); font-size: 14px; font-weight: 600; text-decoration: none; cursor: pointer; overflow: visible; }
+#kiosk-admin-dialog .ka-small { padding: 6px 12px; font-size: 13px; }
+#kiosk-admin-dialog .ka-secondary { background: transparent; color: #fff; border-color: rgba(255, 255, 255, 0.3); }
+#kiosk-admin-dialog .ka-danger { background: transparent; color: #ffb4a6; border-color: rgba(255, 180, 166, 0.6); }
+.ka-pill { padding: 2px 10px; border-radius: 10px; font-size: 12px; font-weight: 600; background: rgba(255, 255, 255, 0.14); }
+.ka-off { opacity: 0.7; }
+.ka-results { display: flex; flex-direction: column; gap: 4px; margin: 6px 0; }
+#kiosk-admin-dialog .ka-result { display: block; width: 100%; margin: 0; text-align: left; padding: 8px 10px; border-radius: 8px; background: rgba(255, 255, 255, 0.07); color: #fff; border: 1px solid rgba(255, 255, 255, 0.14); font-size: 13px; cursor: pointer; overflow: visible; }
+.ka-preview { padding: 8px 10px; border-radius: 8px; background: rgba(0, 212, 255, 0.1); font-size: 13px; }
+.ka-preview:empty { display: none; }
+.ka-warn { margin: 0 0 14px; padding: 10px 14px 10px 30px; border-radius: 10px; background: rgba(251, 191, 36, 0.12); border: 1px solid rgba(251, 191, 36, 0.4); color: #fde68a; font-size: 13px; line-height: 1.5; }
+.ka-footer { display: flex; justify-content: space-between; align-items: center; gap: 10px; padding-top: 12px; }
+#ka-status { font-size: 12.5px; color: #cbd5e1; }
+#ka-status.ka-bad { color: #ffb4a6; }
+#kiosk-admin-button { margin-top: 0; }

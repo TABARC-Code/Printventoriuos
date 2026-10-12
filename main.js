@@ -31,6 +31,7 @@ const { detectInstalledSlicers } = require('./slicer-detect');
 const { buildSlicerSpawnSpec, launchSlicerProcess, invalidSlicerPathError } = require('./slicer-launch');
 const { registerHelperBundleRoute } = require('./helper/install-bundle');
 const serverSecurity = require('./server-security');
+const kioskCore = require('./kiosk-core');
 const {
   normalizeExcludeNames,
   shouldSkipDirectoryName,
@@ -709,6 +710,15 @@ function startHttpServer(port = 5000, localhostOnly = false, options = {}) {
   const accessToken = serverSecurity.validateToken(process.env.PRINTVENTORY_ACCESS_TOKEN);
   const allowedOrigins = serverSecurity.parseList(process.env.PRINTVENTORY_ALLOWED_ORIGINS);
   expressApp.use(serverSecurity.createOriginPolicy({ allowedOrigins }));
+  // Customer quote page (off until switched on in Quote Requests). Deliberately mounted BEFORE the admin
+  // access guard (customers don't have the token) and BEFORE the 50 MB body parser (it takes 8 KB at most).
+  // It exposes five small endpoints and none of the admin WebSocket. See kiosk-core.js.
+  kioskCore.registerRoutes(expressApp, {
+    getDb: () => db,
+    getSetting: (k) => getSettingValueOr(k, null),
+    appDir: __dirname,
+    onNewRequest: () => { try { mainWindow?.webContents.send('kiosk-requests-changed'); } catch (_) { /* window closing */ } }
+  });
   expressApp.use(serverSecurity.createAccessGuard(accessToken));
   expressApp.use(serverSecurity.createStaticBlocker());
   if (!localhostOnly && !accessToken) {
@@ -3599,10 +3609,23 @@ function migrateRatingFavoriteColumns() {
   }
 }
 
+// Quote requests hold customers' email addresses, so they're deleted after the retention period
+// (Quote requests settings; default 180 days). Runs at start-up and every six hours.
+function purgeKioskRequests() {
+  try {
+    const days = kioskCore.loadSettings((k) => getSettingValueOr(k, null)).retentionDays;
+    const removed = kioskCore.purgeOld(db, days);
+    if (removed) console.log(`[Kiosk] Deleted ${removed} quote request(s) older than ${days} days`);
+  } catch (error) { console.error('[Kiosk] Could not purge old quote requests:', error.message); }
+}
+setInterval(purgeKioskRequests, 6 * 60 * 60 * 1000).unref();
+
 function migratePrintLifecycleColumns() {
   try {
     printEvents.migratePrintLifecycle(db);
     printerManager.ensurePrinterSchema(db);
+    kioskCore.ensureSchema(db);
+    purgeKioskRequests();
     return true;
   } catch (error) {
     console.error('Error migrating print lifecycle columns:', error);
@@ -4040,6 +4063,10 @@ async function createWindow() {
           click: () => mainWindow.webContents.send('open-farm-cost')
         },
         {
+          label: 'Quote Requests',
+          click: () => mainWindow.webContents.send('open-kiosk-admin')
+        },
+        {
           label: 'Display and Accessibility',
           click: () => mainWindow.webContents.send('open-display-prefs')
         },
@@ -4366,6 +4393,10 @@ function createApplicationMenu() {
         {
           label: 'Farm Cost Calculator',
           click: () => mainWindow.webContents.send('open-farm-cost')
+        },
+        {
+          label: 'Quote Requests',
+          click: () => mainWindow.webContents.send('open-kiosk-admin')
         },
         {
           label: 'Display and Accessibility',
@@ -6646,6 +6677,13 @@ async function getAllPrintersHandler() {
   }
 }
 ipcMain.handle('get-all-printers', getAllPrintersHandler);
+
+kioskCore.registerAdminIpc(ipcMain, {
+  getDb: () => db,
+  getSetting: (k) => getSettingValueOr(k, null),
+  setSetting: writeSettingValue,
+  status: () => ({ tokenSet: !!process.env.PRINTVENTORY_ACCESS_TOKEN, serverMode: isServerMode })
+});
 
 async function discoverPrintersHandler(event, range) {
   try {
@@ -13830,6 +13868,10 @@ ipcMain.on('open-farm-cost', (event) => {
 
 ipcMain.on('open-display-prefs', (event) => {
   mainWindow.webContents.send('open-display-prefs');
+});
+
+ipcMain.on('open-kiosk-admin', (event) => {
+  mainWindow.webContents.send('open-kiosk-admin');
 });
 
 // Whole-window zoom for the desktop app (Display and accessibility > Window size).

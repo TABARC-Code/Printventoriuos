@@ -506,6 +506,25 @@ html.pref-contrast-high .tp-background {
 html.pref-contrast-high .force-fail-panel {
   border: 1px solid rgba(255, 255, 255, 0.6) !important;
 }
+html.pref-contrast-high .ka-tabs {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.6) !important;
+}
+html.pref-contrast-high .ka-card {
+  border: 1px solid rgba(255, 255, 255, 0.6) !important;
+}
+html.pref-contrast-high .ka-field input,
+html.pref-contrast-high .ka-field select,
+html.pref-contrast-high .ka-field textarea,
+html.pref-contrast-high .ka-row select,
+html.pref-contrast-high .ka-form input[type="search"] {
+  border: 1px solid rgba(255, 255, 255, 0.6) !important;
+}
+html.pref-contrast-high #kiosk-admin-dialog .ka-secondary {
+  border-color: rgba(255, 255, 255, 0.6) !important;
+}
+html.pref-contrast-high #kiosk-admin-dialog .ka-result {
+  border: 1px solid rgba(255, 255, 255, 0.6) !important;
+}
 html.pref-contrast-high .notes-toolbar button {
   border: 1px solid rgba(255, 255, 255, 0.6) !important;
 }

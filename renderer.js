@@ -75,7 +75,7 @@ window._electronRealEventHandlers = {};
 window._electronPendingEvents = {};
 const earlyEventChannels = [
   'open-theme-settings', 'clear-new-flags', 'regenerate-thumbnails', 'generate-missing-thumbnails',
-  'start-print-roulette', 'open-dedup', 'open-organize-library', 'open-tag-manager', 'open-filament-manager', 'open-printer-management', 'open-farm-cost', 'open-display-prefs', 'open-parts-stock', 'open-stats',
+  'start-print-roulette', 'open-dedup', 'open-organize-library', 'open-tag-manager', 'open-filament-manager', 'open-printer-management', 'open-farm-cost', 'open-display-prefs', 'open-kiosk-admin', 'open-parts-stock', 'open-stats',
   'open-backup-restore', 'open-ai-config', 'open-file-type-settings', 'open-performance-settings',
   'open-slicer-settings', 'open-browser-extension-settings', 'open-mcp-server-settings', 'open-https-settings', 'open-purge-models',
   'open-metadata-editor', 'open-system-report', 'open-manage-thumbnails',
@@ -7809,6 +7809,13 @@ async function createServerMenuBar() {
         window.openPrinterManagement();
       } else {
         window.electron.send('open-printer-management');
+      }
+    }},
+    { label: 'Quote Requests', action: () => {
+      if (typeof window.openKioskAdmin === 'function') {
+        window.openKioskAdmin();
+      } else {
+        window.electron.send('open-kiosk-admin');
       }
     }},
     { label: 'Display and Accessibility', action: () => {

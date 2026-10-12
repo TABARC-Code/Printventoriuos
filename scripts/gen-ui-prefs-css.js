@@ -28,7 +28,7 @@ const path = require('path');
 
 const ROOT = path.resolve(__dirname, '..');
 const INPUTS = [
-  'theme.css', 'styles.css', 'mobile-ui.css', 'preview-wall.css', 'thumbnail-progress.css',
+  'theme.css', 'styles.css', 'mobile-ui.css', 'preview-wall.css', 'thumbnail-progress.css', 'kiosk-admin.css',
   'notes-markdown.css', 'organize-library.css', 'printer-management.css', 'parts-stock.css', 'farm-cost.css'
 ];
 const SURFACE = [30, 30, 46];            // #1e1e2e, the usual dialog surface

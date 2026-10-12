@@ -891,6 +891,62 @@ html.pref-text-scaled .force-fail-list li {
 html.pref-text-scaled .force-fail-panel .force-fail-ok {
   font-size: calc(14px * var(--ui-text-scale, 1)) !important;
 }
+html.pref-text-scaled #kiosk-admin-dialog h3 {
+  font-size: calc(20px * var(--ui-text-scale, 1)) !important;
+}
+html.pref-text-scaled .ka-lead {
+  font-size: calc(13px * var(--ui-text-scale, 1)) !important;
+}
+html.pref-text-scaled #kiosk-admin-dialog .ka-tab {
+  font-size: calc(14px * var(--ui-text-scale, 1)) !important;
+}
+html.pref-text-scaled .ka-badge {
+  font-size: calc(12px * var(--ui-text-scale, 1)) !important;
+}
+html.pref-text-scaled .ka-card p {
+  font-size: calc(14px * var(--ui-text-scale, 1)) !important;
+}
+html.pref-text-scaled .ka-muted,
+html.pref-text-scaled .ka-hint {
+  font-size: calc(12.5px * var(--ui-text-scale, 1)) !important;
+}
+html.pref-text-scaled .ka-label {
+  font-size: calc(12.5px * var(--ui-text-scale, 1)) !important;
+}
+html.pref-text-scaled .ka-field input,
+html.pref-text-scaled .ka-field select,
+html.pref-text-scaled .ka-field textarea,
+html.pref-text-scaled .ka-row select,
+html.pref-text-scaled .ka-form input[type="search"] {
+  font-size: calc(14px * var(--ui-text-scale, 1)) !important;
+}
+html.pref-text-scaled .ka-switch strong {
+  font-size: calc(14.5px * var(--ui-text-scale, 1)) !important;
+}
+html.pref-text-scaled .ka-switch small {
+  font-size: calc(12.5px * var(--ui-text-scale, 1)) !important;
+}
+html.pref-text-scaled #kiosk-admin-dialog .ka-btn {
+  font-size: calc(14px * var(--ui-text-scale, 1)) !important;
+}
+html.pref-text-scaled #kiosk-admin-dialog .ka-small {
+  font-size: calc(13px * var(--ui-text-scale, 1)) !important;
+}
+html.pref-text-scaled .ka-pill {
+  font-size: calc(12px * var(--ui-text-scale, 1)) !important;
+}
+html.pref-text-scaled #kiosk-admin-dialog .ka-result {
+  font-size: calc(13px * var(--ui-text-scale, 1)) !important;
+}
+html.pref-text-scaled .ka-preview {
+  font-size: calc(13px * var(--ui-text-scale, 1)) !important;
+}
+html.pref-text-scaled .ka-warn {
+  font-size: calc(13px * var(--ui-text-scale, 1)) !important;
+}
+html.pref-text-scaled #ka-status {
+  font-size: calc(12.5px * var(--ui-text-scale, 1)) !important;
+}
 html.pref-text-scaled .notes-toolbar button {
   font-size: calc(13px * var(--ui-text-scale, 1)) !important;
 }

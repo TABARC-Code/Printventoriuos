@@ -123,6 +123,12 @@ Printventory offers three different view modes to suit your workflow:
 
 Switch between view modes using the view controls in the interface.
 
+## Quote requests (customer quote page)
+
+For a shop counter or a tablet: customers pick something from the catalogue you choose, get a price, leave their email address, and you receive the request. Open **Quote requests** from the Tools menu. **Settings** turns the customer page on (it's off by default), **Catalogue** is where you add the models you're happy to sell, with their print time and filament weight, and **Requests** is your inbox, showing your own cost and profit beside each quote and a reply-by-email button.
+
+Customers use `http://your-server:5000/kiosk`. Use Server Mode, set an access token, and read `docs/kiosk-quotes.md` first: it explains what the page stores (nothing on the customer's device), what you keep (their email address, deleted after a period you choose), and what it deliberately doesn't do (payment, uploads, email sending).
+
 ## Display and accessibility
 
 Open it with the **Aa** button at the top of the sidebar, or Display and Accessibility in the Tools menu. Everything applies as you click, and **Reset to standard** undoes it all. Your choices are saved on this device only (in the browser or app), not in the library, so other people using the same Server Mode library keep their own settings.
