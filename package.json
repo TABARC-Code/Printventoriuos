@@ -176,6 +176,8 @@
       "printer-management.css",
       "parts-stock.js",
       "parts-stock.css",
+      "ui-polish.js",
+      "fonts/**/*",
       "farm-cost-lib.js",
       "farm-cost.js",
       "farm-cost.css",

@@ -20,6 +20,7 @@
   const CONFIG_KEY = 'farmCostConfig';
   const JOB_KEY = 'farmCostLastJob';
   const MAX_FILAMENT_LINES = 8;
+  const HASH = '#farm-cost';
 
   let cfg = FC ? FC.normaliseConfig({}) : null;
   let configSaved = false;      // false until the user has stored a config at least once
@@ -549,6 +550,16 @@
     syncFullscreenButton();
     switchTab(tab);
     if (typeof dialog.showModal === 'function' && !dialog.open) dialog.showModal();
+    // Give it an address, so in the web interface it can be bookmarked or linked to.
+    try { if (location.hash !== HASH) history.replaceState(null, '', HASH); } catch (_) { /* some embedded contexts refuse; not important */ }
+  }
+
+  // Open from a link such as http://server:5000/#farm-cost. In the web interface the
+  // connection to the server may still be coming up, so wait for it rather than fail.
+  function openFromHash(attempt = 0) {
+    if (location.hash !== HASH) return;
+    if (window.electron?.getSetting && window.electron?.getAllPrinters) { openFarmCost(); return; }
+    if (attempt < 40) setTimeout(() => openFromHash(attempt + 1), 250);
   }
 
   function syncFullscreenButton() {
@@ -576,7 +587,10 @@
       $('farm-cost-dialog')?.classList.toggle('modal-fullscreen');
       syncFullscreenButton();
     });
+    window.addEventListener('hashchange', () => openFromHash());
+    openFromHash();
     $('farm-cost-dialog')?.addEventListener('close', () => {
+      try { if (location.hash === HASH) history.replaceState(null, '', location.pathname + location.search); } catch (_) { /* fine */ }
       // flush any pending debounce so closing quickly never loses an edit
       if (saveTimer) { clearTimeout(saveTimer); saveTimer = null; Promise.resolve().then(async () => { try { await window.electron.saveSetting(CONFIG_KEY, JSON.stringify(cfg)); await window.electron.saveSetting(JOB_KEY, JSON.stringify(job)); } catch (_) { /* nothing more to do */ } }); }
     });

@@ -402,7 +402,7 @@
 #printer-management-dialog .printer-url-open-btn:hover {
   background: color-mix(in srgb, var(--primary-accent, #00d4ff) 22%, transparent) !important;
   border-color: var(--primary-accent, #00d4ff) !important;
-  color: #fff !important;
+  color: var(--primary-accent-text, #07121a) !important;
   transform: none;
 }
 
@@ -532,7 +532,7 @@
   align-items: center;
   justify-content: center;
   background: var(--primary-accent, #00d4ff);
-  color: #fff;
+  color: var(--primary-accent-text, #07121a);
   border: none;
   border-radius: 10px;
   padding: 10px 32px;
@@ -802,7 +802,7 @@
 .printer-action-btn.web-ui:hover,
 #printer-management-dialog .printer-action-btn.web-ui:hover {
   background: color-mix(in srgb, var(--primary-accent, #00d4ff) 24%, transparent) !important;
-  color: #fff !important;
+  color: var(--primary-accent-text, #07121a) !important;
   border-color: var(--primary-accent, #00d4ff) !important;
 }
 

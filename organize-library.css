@@ -233,7 +233,7 @@
 
 #organize-library-dialog #organize-preview-button {
   background: var(--primary-accent, #00d4ff);
-  color: #fff;
+  color: var(--primary-accent-text, #07121a);
   border: none;
 }
 

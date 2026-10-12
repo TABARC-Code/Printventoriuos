@@ -4,6 +4,12 @@ All notable changes contributed via pull request are documented in this file.
 
 ## [Unreleased]
 
+- Button text is readable on every accent colour. White text on the default cyan was 1.77:1 (the usual minimum is 4.5:1), which made Scan Directory, Save, Add and about 100 other buttons hard to read; of 275 buttons measured, 111 failed before and 2 after (those two sit on a translucent tile and are fine in practice). The text colour now follows the theme accent automatically
+- An empty library and a search or filter that matches nothing now say so and offer the next step (Scan a folder, Clear all filters) instead of showing a blank grid
+- Scrollable panels with nothing focusable inside can now be reached and scrolled with the keyboard. The sidebar has a page heading and landmark for screen readers; the printer type filter has a proper label; one low-contrast heading in De-Dup is fixed
+- Inter is bundled with the app (Latin subset from Google Fonts, SIL OFL 1.1, licence included in `fonts/`), so the interface looks the same on Windows, macOS, Linux and Docker, and Server Mode needs no internet for typography
+- The Farm Cost Calculator can be opened from a link: `http://server:5000/#farm-cost`
+
 - New Print Farm Cost Calculator (Printer Manager's neighbour on the sidebar and the Tools menu). Prices a job from each printer's own cost profile, shows where the money goes and what the job earns per machine hour, splits a multi-plate batch across your printers, and can use your logged prints for a real failure rate. See `docs/farm-cost-research.md` for what it was based on
 - `get-print-outcome-stats` returns logged print outcomes per printer, weighted by quantity
 

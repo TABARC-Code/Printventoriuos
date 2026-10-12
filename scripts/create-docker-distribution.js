@@ -50,6 +50,7 @@ const filesToCopy = [
   'slicer-detect.js',
   'printer-management.js',
   'printer-management.css',
+  'ui-polish.js',
   'farm-cost-lib.js',
   'farm-cost.js',
   'farm-cost.css',
@@ -153,6 +154,12 @@ if (fs.existsSync('guide')) {
 if (fs.existsSync('vendor')) {
   console.log('Copying vendor directory...');
   fs.cpSync('vendor', path.join(dockerDistDir, 'vendor'), { recursive: true });
+}
+
+// Copy fonts (self-hosted Inter and its licence)
+if (fs.existsSync('fonts')) {
+  console.log('Copying fonts directory...');
+  fs.cpSync('fonts', path.join(dockerDistDir, 'fonts'), { recursive: true });
 }
 
 // Create README

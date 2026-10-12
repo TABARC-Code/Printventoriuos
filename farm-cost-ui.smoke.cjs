@@ -101,6 +101,12 @@ function serve() {
     assert.strictEqual(saved.printers[1].price, 400);
     assert.strictEqual(saved.filaments[7].spoolPrice, 20);
     assert.deepStrictEqual(errors, [], `page errors: ${errors.join('; ')}`);
+
+    // a link straight to the page opens it
+    await page.evaluate(() => document.getElementById('farm-cost-dialog').close());
+    await page.waitForFunction(() => !location.hash, null, { timeout: 3000 });   // the close event is queued, not instant
+    await page.goto(`${base}/index.html#farm-cost`);
+    await page.waitForFunction(() => document.getElementById('farm-cost-dialog')?.open, null, { timeout: 8000 });
     console.log('ok farm cost dialog smoke test');
   } finally {
     await browser.close();

@@ -25,6 +25,21 @@ Before the install step, 9 test files failed. Eight were just missing `fflate`, 
 
 Researched existing calculators (see `docs/farm-cost-research.md`, which separates what I read from what I only saw in search results) and built one around a print farm: per-printer cost profiles, overhead spread over planned machine hours, failure allowance that only scales what a failure wastes, failure rate from logged prints, margin-based pricing alongside markup, profit per machine hour, a batch planner and a what-if table. The maths is in `farm-cost-lib.js` with 19 hand-checked tests; the dialog has a Playwright smoke test (`farm-cost-ui.smoke.cjs`). Not checked: the Electron desktop shell, and a long list of nice-to-haves (3MF auto-fill, time-of-use tariffs, expense tracking) that are in the research notes.
 
+## Added later: UI/UX pass
+
+Ran an automated accessibility audit (axe-core) over the main screen and all 42 dialogs, then measured every button's text contrast by hand. Findings and fixes:
+
+- **Unreadable buttons.** The biggest one. White text on the cyan accent is 1.77:1; 111 of 275 buttons failed. Fixed at the root (`ui-polish.js` picks black or white text for whichever accent theme is active; 24 CSS rules updated; two stray blues darkened). Tested against every theme accent in the app.
+- **Blank screen for a new user.** An empty library showed nothing at all. Now it explains what to do and has a Scan button. A filter that matches nothing says so and offers Clear all filters.
+- **Keyboard users.** Scrollable panels with nothing focusable in them couldn't be scrolled. Fixed.
+- **Screen readers.** Page heading, sidebar landmark, one unlabelled select.
+- **Typography.** The CSS asked for Inter but never shipped it, so the look depended on the machine. Bundled, with the OFL licence.
+- **Remaining axe finding:** the sidebar resize handle sits outside a landmark. It is a mouse-only drag handle already marked `role="separator"`; I left it.
+
+Checked: axe now reports no serious violations on the main screen or any dialog; 6 unit tests for the colour choice; a Playwright smoke test for accent text, empty states and scroll regions (`ui-polish.smoke.cjs`).
+
+Not done, and why: arrow-key movement through the tile grid (it is virtualised, and I had no real library to test it against); the mobile layout (the mobile UI didn't switch on in my test setup, so I can't vouch for the empty state there); soft delete with undo (touches the delete path); the duplicate `progress-bar` id. Also noticed: `scripts/zip-macos-build.ps1` has a stale file list (it was missing printer-management and parts-stock before I touched it), so that script needs a proper review by someone who builds on macOS.
+
 ## Function
 
 1. ~~**Authentication for Server Mode.**~~ **Done, opt-in** (see above). The rest of this item stays true: it is off by default, so the default is still an open server on your network. Making it on by default would break every existing Docker setup in one go; that's a release-notes decision, not a quiet one. Original note: This is the big one. The HTTP server binds `0.0.0.0` in server mode, sets `Access-Control-Allow-Origin: *`, and I found no login or token check in front of the routes. The README says "for local network use", which is honest, but it isn't a control. Proposal: an optional access token (env var and settings field), checked by one middleware, with the bridge sending it. Opt-in first so nobody's existing Docker setup breaks.

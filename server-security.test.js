@@ -87,7 +87,7 @@ function wsConnect(port, headers = {}) {
     for (const p of ['/package-lock.json', '/node_modules/x/index.js', '/tests/printventory.db', '/scripts/a.sh', '/Dockerfile', '/.github/workflows/a.yml', '/a.db', '/%2e%2e/%2e%2e/x.env']) {
       assert.ok(sec.isBlockedStaticPath(p), p);
     }
-    for (const p of ['/', '/index.html', '/renderer.js', '/styles.css', '/logo.png', '/sw.js']) {
+    for (const p of ['/', '/index.html', '/renderer.js', '/styles.css', '/logo.png', '/sw.js', '/ui-polish.js', '/farm-cost.js', '/fonts/inter.css', '/fonts/inter-normal-100-900-latin.woff2']) {
       assert.ok(!sec.isBlockedStaticPath(p), p);
     }
   });
