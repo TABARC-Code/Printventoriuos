@@ -564,18 +564,6 @@
     'deletePart': 'delete-part',
     'getAllPrinters': 'get-all-printers',
     'getPrintOutcomeStats': 'get-print-outcome-stats',
-    'getKioskSettings': 'kiosk-get-settings',
-    'saveKioskSettings': 'kiosk-save-settings',
-    'listKioskItems': 'kiosk-list-items',
-    'searchKioskModels': 'kiosk-search-models',
-    'saveKioskItem': 'kiosk-save-item',
-    'removeKioskItem': 'kiosk-remove-item',
-    'listKioskRequests': 'kiosk-list-requests',
-    'updateKioskRequest': 'kiosk-update-request',
-    'deleteKioskRequest': 'kiosk-delete-request',
-    'getKioskRequestCount': 'kiosk-request-count',
-    'previewKioskQuote': 'kiosk-preview-quote',
-    'testKioskWebhook': 'kiosk-test-webhook',
     'discoverPrinters': 'discover-printers',
     'getLocalScanNetworks': 'get-local-scan-networks',
     'getPrinterStatuses': 'get-printer-statuses',
@@ -723,10 +711,6 @@
 
   window.electron.onOpenPrinterManagement = function(callback) {
     window.electron.on('open-printer-management', callback);
-  };
-
-  window.electron.onOpenKioskAdmin = function(callback) {
-    window.electron.on('open-kiosk-admin', callback);
   };
 
   window.electron.onOpenDisplayPrefs = function(callback) {

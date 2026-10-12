@@ -25,12 +25,6 @@ Before the install step, 9 test files failed. Eight were just missing `fflate`, 
 
 Researched existing calculators (see `docs/farm-cost-research.md`, which separates what I read from what I only saw in search results) and built one around a print farm: per-printer cost profiles, overhead spread over planned machine hours, failure allowance that only scales what a failure wastes, failure rate from logged prints, margin-based pricing alongside markup, profit per machine hour, a batch planner and a what-if table. The maths is in `farm-cost-lib.js` with 19 hand-checked tests; the dialog has a Playwright smoke test (`farm-cost-ui.smoke.cjs`). Not checked: the Electron desktop shell, and a long list of nice-to-haves (3MF auto-fill, time-of-use tariffs, expense tracking) that are in the research notes.
 
-## Added later: customer quote page
-
-A deliberately small version of the "kiosk" idea: customer picks an item, gets a quote, leaves an email address, and it forwards to you in the back end. Built as its own narrow interface (five endpoints, no access to the admin WebSocket) rather than a locked-down copy of the admin UI, with the price computed server-side from the Farm Cost Calculator and cost and profit visible only to the shop. Nothing is stored on the customer's device; requests are kept in the library and deleted after a retention period. Full notes, limits and what was and wasn't tested are in `docs/kiosk-quotes.md`.
-
-Left out on purpose: payment, uploads, accounts, direct email sending (needs stored mail credentials), customer order tracking. Per-model print time and weight are entered by hand; reading them from 3MF files would be nicer but I haven't verified what the app's 3MF reader returns.
-
 ## Added later: display and accessibility options
 
 Asked for dyslexia and colour-blind friendly choices, easy-read fonts, bigger text and a more ergonomic layout. Built as one settings dialog (the "Aa" button), stored per device in the browser or app so people sharing a Server Mode library don't impose their needs on each other.

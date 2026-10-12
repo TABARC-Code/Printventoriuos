@@ -36,7 +36,6 @@ One warning worth repeating: Server Mode only asks for a login if you set `PRINT
 - **MCP Server**: Connect a local AI agent to search the library, read model details, and write thumbnails (see [MCP Server](#mcp-server))
 - **Multi-Edit Mode**: Select and edit multiple models simultaneously for batch operations
 - **Duplicate Detection**: Find duplicate files based on content hash with visual comparison, optionally limited to the current library filters
-- **Customer quote page**: a separate, narrow `/kiosk` page where customers pick an item, get a price from the calculator and send you their email address; requests arrive in a Quote requests inbox; off by default and nothing stored on the customer's device (see [docs/kiosk-quotes.md](docs/kiosk-quotes.md))
 - **Display and Accessibility**: Easy-read and dyslexia-friendly font choices, larger text, roomy spacing, a colour-blind safe palette with shapes, high contrast, larger click targets and stronger focus (see the [guide](GUIDE.md))
 - **Print Farm Cost Calculator**: Price jobs from each printer's own cost profile, see profit per machine hour, split batches across the farm, and use your logged prints for a real failure rate (see [docs/farm-cost-research.md](docs/farm-cost-research.md))
 - **Print Roulette**: Randomly select models from your collection
