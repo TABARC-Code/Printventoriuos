@@ -1,0 +1,91 @@
+/* Print Farm Cost Calculator. Same dark look as the other manager dialogs. */
+#farm-cost-dialog { background: rgba(24, 24, 38, 0.98); color: #fff; padding: 20px 26px; }
+#farm-cost-dialog * { box-sizing: border-box; }
+#farm-cost-dialog [hidden] { display: none !important; }
+#farm-cost-dialog:not(.modal-fullscreen) { width: 94%; max-width: 1200px; }
+#farm-cost-form { display: flex; flex-direction: column; min-height: 0; height: 100%; max-height: 90vh; margin: 0; }
+#farm-cost-dialog.modal-fullscreen #farm-cost-form { max-height: none; }
+
+.farm-cost-header-row { display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+.farm-cost-header h3 { margin: 0; font-size: 20px; font-weight: 700; }
+.farm-cost-header .setting-description { margin: 4px 0 12px; color: #94a3b8; font-size: 13px; line-height: 1.5; }
+
+#farm-cost-body { flex: 1; min-height: 0; overflow-y: auto; padding-right: 4px; }
+.fc-tabs { display: flex; gap: 6px; margin-bottom: 14px; border-bottom: 1px solid rgba(255, 255, 255, 0.12); }
+/* The app's global `button` rule is wide, flat-blue and 90% wide, so every button here resets it. */
+#farm-cost-dialog .fc-tab, #farm-cost-dialog .fc-btn, #farm-cost-dialog .fc-link-btn, #farm-cost-dialog .fc-icon-btn {
+  display: inline-flex; width: auto; margin: 0; overflow: visible; box-shadow: none; transform: none;
+}
+#farm-cost-dialog .fc-tab { background: none; border: none; border-radius: 0; color: #94a3b8; padding: 10px 16px; font-size: 14px; cursor: pointer; border-bottom: 2px solid transparent; }
+#farm-cost-dialog .fc-tab.active { color: #fff; background: none; border-bottom-color: var(--primary-accent, #00d4ff); }
+#farm-cost-dialog .fc-tab:hover { color: #fff; background: rgba(255, 255, 255, 0.05); }
+
+.fc-grid { display: grid; grid-template-columns: minmax(300px, 420px) 1fr; gap: 24px; align-items: start; }
+.fc-col h4, .fc-card h4 { margin: 18px 0 8px; font-size: 13px; text-transform: uppercase; letter-spacing: 0.06em; color: #94a3b8; }
+.fc-col h4:first-child, .fc-card h4:first-child { margin-top: 0; }
+
+.fc-field { display: flex; flex-direction: column; gap: 4px; margin-bottom: 10px; min-width: 0; }
+.fc-label { font-size: 12px; color: #cbd5e1; }
+.fc-hint { font-size: 12px; color: #94a3b8; line-height: 1.45; }
+.fc-field input, .fc-field select, .fc-filament-row input, .fc-filament-row select, .fc-edit-table input {
+  width: 100%; padding: 8px 10px; border-radius: 8px; border: 1px solid rgba(255, 255, 255, 0.15);
+  background: rgba(255, 255, 255, 0.06); color: #fff; font-size: 14px; min-width: 0;
+}
+.fc-field select option, .fc-filament-row select option { color: #000; }
+.fc-field input:focus, .fc-field select:focus, .fc-filament-row input:focus, .fc-filament-row select:focus, .fc-edit-table input:focus {
+  outline: 2px solid var(--primary-accent, #00d4ff); outline-offset: 1px;
+}
+.fc-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.fc-filament-row { display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 1fr) auto; gap: 8px; margin-bottom: 8px; align-items: center; }
+.fc-filament-row select:first-child:nth-last-child(2) { grid-column: span 2; }
+#farm-cost-dialog .fc-icon-btn { background: none; border: 1px solid rgba(255, 255, 255, 0.2); color: #fff; border-radius: 8px; width: 32px; height: 32px; cursor: pointer; font-size: 18px; line-height: 1; }
+#farm-cost-dialog .fc-link-btn { background: none; border: none; color: var(--primary-accent, #00d4ff); cursor: pointer; padding: 4px 0; font-size: 13px; }
+#farm-cost-dialog .fc-link-btn:hover { background: none; text-decoration: underline; }
+#farm-cost-dialog .fc-link-btn:disabled { color: #64748b; cursor: not-allowed; }
+
+.fc-warnings { margin: 0 0 14px; padding: 10px 14px 10px 30px; border-radius: 10px; background: rgba(251, 191, 36, 0.12); border: 1px solid rgba(251, 191, 36, 0.4); color: #fde68a; font-size: 13px; line-height: 1.5; }
+.fc-headline { padding: 16px 18px; border-radius: 14px; background: rgba(255, 255, 255, 0.06); margin-bottom: 12px; }
+.fc-price-label { font-size: 12px; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.06em; }
+.fc-price { font-size: 40px; font-weight: 700; line-height: 1.15; color: var(--primary-accent, #00d4ff); }
+.fc-price-sub { font-size: 13px; color: #cbd5e1; }
+.fc-tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 8px; margin-bottom: 8px; }
+.fc-tile { padding: 10px 12px; border-radius: 10px; background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.08); }
+.fc-tile-value { font-size: 18px; font-weight: 600; }
+.fc-tile-label { font-size: 11px; color: #94a3b8; margin-top: 2px; }
+.fc-tile.bad .fc-tile-value, .fc-neg { color: #fca5a5; }
+.fc-pos { color: #86efac; }
+
+.fc-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+.fc-table th, .fc-table td { padding: 6px 8px; text-align: left; border-bottom: 1px solid rgba(255, 255, 255, 0.07); font-weight: 400; }
+.fc-table thead th { color: #94a3b8; font-size: 11px; text-transform: uppercase; letter-spacing: 0.04em; }
+.fc-table tfoot th, .fc-table tfoot td { font-weight: 700; border-bottom: none; }
+.fc-num { text-align: right !important; white-space: nowrap; font-variant-numeric: tabular-nums; }
+.fc-bar-cell { width: 35%; }
+.fc-bar { display: block; height: 8px; border-radius: 4px; background: var(--primary-accent, #00d4ff); opacity: 0.75; }
+.fc-scroll { overflow-x: auto; }
+.fc-edit-table input { padding: 5px 7px; font-size: 13px; min-width: 70px; }
+
+.fc-card { padding: 16px 18px; border-radius: 14px; background: rgba(255, 255, 255, 0.04); border: 1px solid rgba(255, 255, 255, 0.08); margin-bottom: 14px; }
+.fc-settings-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 4px 16px; }
+.fc-checks { display: flex; flex-wrap: wrap; gap: 6px 14px; margin-bottom: 8px; }
+.fc-check { font-size: 13px; display: inline-flex; align-items: center; gap: 4px; }
+
+.fc-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; margin-top: 14px; }
+#farm-cost-dialog .fc-btn { padding: 8px 14px; border-radius: 10px; border: 1px solid rgba(255, 255, 255, 0.2); background: rgba(255, 255, 255, 0.08); color: #fff; cursor: pointer; font-size: 13px; }
+#farm-cost-dialog .fc-btn:hover { background: rgba(255, 255, 255, 0.14); }
+#farm-cost-dialog .fc-small { padding: 6px 10px; font-size: 12px; }
+.fc-file { position: relative; overflow: hidden; }
+#farm-cost-dialog label.fc-btn.fc-file { display: inline-block; }
+.fc-file input { position: absolute; inset: 0; opacity: 0; cursor: pointer; }
+.fc-btn:focus-visible, .fc-tab:focus-visible, .fc-link-btn:focus-visible, .fc-icon-btn:focus-visible, .fc-file:focus-within { outline: 2px solid var(--primary-accent, #00d4ff); outline-offset: 2px; }
+
+.farm-cost-footer { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding-top: 12px; }
+#farm-cost-status { font-size: 12px; color: #94a3b8; }
+#farm-cost-status.fc-error { color: #fca5a5; }
+
+@media (max-width: 860px) {
+  .fc-grid { grid-template-columns: 1fr; }
+  #farm-cost-dialog { padding: 14px; }
+  .fc-price { font-size: 32px; }
+}
+@media (prefers-reduced-motion: reduce) { #farm-cost-dialog * { transition: none !important; animation: none !important; } }

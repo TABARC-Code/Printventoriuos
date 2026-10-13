@@ -50,6 +50,16 @@ const filesToCopy = [
   'slicer-detect.js',
   'printer-management.js',
   'printer-management.css',
+  'ui-polish.js',
+  'ui-prefs-lib.js',
+  'ui-prefs-boot.js',
+  'ui-prefs.js',
+  'ui-prefs.css',
+  'ui-prefs-scale.css',
+  'ui-prefs-hc.css',
+  'farm-cost-lib.js',
+  'farm-cost.js',
+  'farm-cost.css',
   'parts-stock.js',
   'parts-stock.css',
   'index.html',
@@ -106,6 +116,7 @@ const filesToCopy = [
   'flatten-3mf-stl.js',
   'thumbnail-worker.js',
   'server-tls.js',
+  'server-security.js',
   'extension-inbox.js'
 ];
 
@@ -149,6 +160,12 @@ if (fs.existsSync('guide')) {
 if (fs.existsSync('vendor')) {
   console.log('Copying vendor directory...');
   fs.cpSync('vendor', path.join(dockerDistDir, 'vendor'), { recursive: true });
+}
+
+// Copy fonts (self-hosted Inter and its licence)
+if (fs.existsSync('fonts')) {
+  console.log('Copying fonts directory...');
+  fs.cpSync('fonts', path.join(dockerDistDir, 'fonts'), { recursive: true });
 }
 
 // Create README

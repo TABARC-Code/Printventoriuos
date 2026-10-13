@@ -80,7 +80,9 @@ const MAC_APP_NAMES = [
 ];
 
 function fileStem(filePath) {
-  const base = path.basename(filePath).replace(/\.app$/i, '');
+  // Settings can carry Windows paths onto a Linux box (server mode, synced configs),
+  // and path.basename on POSIX won't split on backslashes. Normalise first.
+  const base = path.posix.basename(String(filePath).replace(/\\/g, '/')).replace(/\.app$/i, '');
   return base.replace(/\.(exe|appimage)$/i, '').toLowerCase();
 }
 

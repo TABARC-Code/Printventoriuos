@@ -302,6 +302,23 @@ test('save helper maps legacy printed checkbox without wiping counts', () => {
   assert.strictEqual(preserved.print_status, 'want');
 });
 
+test('outcome stats are grouped per printer and weighted by quantity', () => {
+  const db = createDb();
+  const model = insertModel(db, { filePath: 'stats.stl' });
+  const add = (printerId, outcome, quantity) => db.prepare(
+    "INSERT INTO print_events (model_id, printed_at, outcome, quantity, created_at, printer_id) VALUES (?, '2026-10-01', ?, ?, '2026-10-01', ?)"
+  ).run(model, outcome, quantity, printerId);
+  add(1, 'printed', 4); add(1, 'printed', 2); add(1, 'failed', 1); add(2, 'failed', 3); add(null, 'printed', 1);
+  const stats = printEvents.getOutcomeStats(db);
+  const find = (printer, outcome) => stats.find((r) => r.printer_id === printer && r.outcome === outcome);
+  assert.strictEqual(find(1, 'printed').quantity, 6);
+  assert.strictEqual(find(1, 'printed').events, 2);
+  assert.strictEqual(find(1, 'failed').quantity, 1);
+  assert.strictEqual(find(2, 'failed').quantity, 3);
+  assert.strictEqual(find(null, 'printed').quantity, 1);
+  assert.deepStrictEqual(printEvents.getOutcomeStats(createDb()), []);
+});
+
 if (process.exitCode) {
   process.exit(process.exitCode);
 }

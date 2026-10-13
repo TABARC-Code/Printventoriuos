@@ -477,6 +477,19 @@ function setPrintStatusBatch(db, payload) {
   return results;
 }
 
+/**
+ * Outcome totals per printer, for the Farm Cost Calculator's "use my real failure
+ * rate" button. Quantity-weighted, so a plate of twelve counts as twelve.
+ * Rows with no printer logged come back with printer_id null.
+ */
+function getOutcomeStats(db) {
+  return db.prepare(`
+    SELECT printer_id, outcome, SUM(quantity) AS quantity, COUNT(*) AS events
+    FROM print_events
+    GROUP BY printer_id, outcome
+  `).all();
+}
+
 function getPrintEvents(db, modelId) {
   const id = Number(modelId);
   if (!Number.isInteger(id) || id <= 0) return [];
@@ -680,6 +693,7 @@ module.exports = {
   setPrintStatus,
   setPrintStatusBatch,
   getPrintEvents,
+  getOutcomeStats,
   deletePrintRowsForModel,
   deletePrintRowsForModels,
   deletePrintEventFilamentsForFilament,

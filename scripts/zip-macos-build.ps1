@@ -42,6 +42,14 @@ $rootFiles = @(
     "thumbnail-progress.js",
     "server-bridge.js",
     "server-tls.js",
+    "server-security.js",
+    "ui-polish.js",
+    "ui-prefs-lib.js",
+    "ui-prefs-boot.js",
+    "ui-prefs.js",
+    "ui-prefs.css",
+    "ui-prefs-scale.css",
+    "ui-prefs-hc.css",
     "mcp-server.js",
     "scan-worker.js",
     "parse-worker.js",
@@ -111,6 +119,12 @@ Copy-Item -Path "scripts" -Destination (Join-Path $stagingPath "scripts") -Recur
 if (Test-Path "guide") {
     Write-Host "Copying guide/"
     Copy-Item -Path "guide" -Destination (Join-Path $stagingPath "guide") -Recurse -Force
+}
+
+# fonts/ (self-hosted Inter and its licence)
+if (Test-Path "fonts") {
+    Write-Host "Copying fonts/"
+    Copy-Item -Path "fonts" -Destination (Join-Path $stagingPath "fonts") -Recurse -Force
 }
 
 # vendor/ (Three.js + loaders - required for index.html and parse-worker importScripts)

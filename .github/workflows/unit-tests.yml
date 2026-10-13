@@ -1,0 +1,33 @@
+name: Unit tests
+
+# The Playwright and TestDriver suites need a display and an API key. These
+# don't, so they can run on every push and tell you within a couple of minutes
+# whether you've broken something daft.
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+
+jobs:
+  unit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'npm'
+
+      # --ignore-scripts skips electron-builder's postinstall; we only want the
+      # one native module the tests actually load.
+      - name: Install dependencies
+        run: npm ci --ignore-scripts
+
+      - name: Build better-sqlite3 for plain Node
+        run: npm rebuild better-sqlite3
+
+      - name: Run unit tests
+        run: npm run test:unit

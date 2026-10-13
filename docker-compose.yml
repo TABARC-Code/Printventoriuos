@@ -53,6 +53,11 @@ services:
       # Electron process and drops all WebSocket clients (browser shows "WebSocket connection failed").
       # Recommend Docker Desktop / host RAM of 4GB+ for this container when scanning large libraries.
       - PRINTVENTORY_PREVIEW_3MF_WORKER_MEMORY_MB=512
+      # Recommended on any network you do not fully control: require an access token
+      # (16+ characters, e.g. `openssl rand -hex 24`). Open the UI once with ?token=...
+      # - PRINTVENTORY_ACCESS_TOKEN=change-me-to-a-long-random-string
+      # Behind a reverse proxy that rewrites the Host header, list the public origin(s) here:
+      # - PRINTVENTORY_ALLOWED_ORIGINS=https://printventory.example.com
       - PRINTVENTORY_PREVIEW_3MF_MAX_FILE_SIZE_MB=200
       # GPU for server-side thumbnail WebGL: auto (default) | nvidia | swiftshader
       # - PRINTVENTORY_GPU=auto
