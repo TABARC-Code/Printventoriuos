@@ -1169,3 +1169,15 @@ html.pref-text-scaled #farm-cost-status {
     font-size: calc(32px * var(--ui-text-scale, 1)) !important;
   }
 }
+html.pref-text-scaled .simple-mode-bar h2 {
+  font-size: calc(20px * var(--ui-text-scale, 1)) !important;
+}
+html.pref-text-scaled .simple-mode-bar p {
+  font-size: calc(16px * var(--ui-text-scale, 1)) !important;
+}
+html.pref-text-scaled .simple-mode-bar button {
+  font-size: calc(18px * var(--ui-text-scale, 1)) !important;
+}
+html.pref-text-scaled #farm-cost-button .simple-label {
+  font-size: calc(17px * var(--ui-text-scale, 1)) !important;
+}

@@ -373,8 +373,12 @@
     const group = [...document.querySelectorAll('#server-menu-bar .server-menu-group')]
       .find((el) => (el.querySelector('.server-menu-button')?.textContent || '').trim() === name);
     if (!group) return [];
+    // Simple mode: only what the web menu itself keeps (see simple-mode.css and ui-prefs-lib.js).
+    const simple = document.documentElement.classList.contains('pref-simple');
+    if (simple && !group.dataset.simpleKeep) return [];
     const items = [];
     group.querySelectorAll(':scope > .server-menu-dropdown > .server-menu-item, :scope > .server-menu-dropdown > .server-menu-separator').forEach((el) => {
+      if (simple && (el.classList.contains('server-menu-separator') || !el.dataset.simpleKeep)) return;
       if (el.classList.contains('server-menu-separator')) {
         items.push({ type: 'sep' });
         return;

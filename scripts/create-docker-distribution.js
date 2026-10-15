@@ -57,6 +57,8 @@ const filesToCopy = [
   'ui-prefs.css',
   'ui-prefs-scale.css',
   'ui-prefs-hc.css',
+  'simple-mode.js',
+  'simple-mode.css',
   'farm-cost-lib.js',
   'farm-cost.js',
   'farm-cost.css',

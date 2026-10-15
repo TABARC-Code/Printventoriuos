@@ -183,6 +183,8 @@
       "ui-prefs.css",
       "ui-prefs-scale.css",
       "ui-prefs-hc.css",
+      "simple-mode.js",
+      "simple-mode.css",
       "fonts/**/*",
       "farm-cost-lib.js",
       "farm-cost.js",

@@ -75,7 +75,7 @@ window._electronRealEventHandlers = {};
 window._electronPendingEvents = {};
 const earlyEventChannels = [
   'open-theme-settings', 'clear-new-flags', 'regenerate-thumbnails', 'generate-missing-thumbnails',
-  'start-print-roulette', 'open-dedup', 'open-organize-library', 'open-tag-manager', 'open-filament-manager', 'open-printer-management', 'open-farm-cost', 'open-display-prefs', 'open-parts-stock', 'open-stats',
+  'start-print-roulette', 'open-dedup', 'open-organize-library', 'open-tag-manager', 'open-filament-manager', 'open-printer-management', 'open-farm-cost', 'open-display-prefs', 'toggle-simple-mode', 'open-parts-stock', 'open-stats',
   'open-backup-restore', 'open-ai-config', 'open-file-type-settings', 'open-performance-settings',
   'open-slicer-settings', 'open-browser-extension-settings', 'open-mcp-server-settings', 'open-https-settings', 'open-purge-models',
   'open-metadata-editor', 'open-system-report', 'open-manage-thumbnails',
@@ -6550,6 +6550,8 @@ async function checkTermsOfService() {
 function createMenuDropdown(label, items) {
   const menuContainer = document.createElement('div');
   menuContainer.className = 'server-menu-group';
+  // Simple mode (simple-mode.css) hides every menu and item that isn't tagged like this.
+  if (window.UiPrefsLib?.keepsMenu(label)) menuContainer.dataset.simpleKeep = '1';
 
   const menuButton = document.createElement('button');
   menuButton.type = 'button';
@@ -6596,6 +6598,7 @@ function createMenuDropdown(label, items) {
       const menuItem = document.createElement('div');
       menuItem.textContent = item.label;
       menuItem.className = 'server-menu-item';
+      if (window.UiPrefsLib?.keepsMenuItem(item.label)) menuItem.dataset.simpleKeep = '1';
       menuItem.onclick = () => {
         if (item.action) {
           item.action();
@@ -7817,6 +7820,9 @@ async function createServerMenuBar() {
       } else {
         window.electron.send('open-display-prefs');
       }
+    }},
+    { label: 'Simple Mode', action: () => {
+      if (typeof window.toggleSimpleMode === 'function') window.toggleSimpleMode();
     }},
     { label: 'Farm Cost Calculator', action: () => {
       if (typeof window.openFarmCost === 'function') {

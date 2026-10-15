@@ -43,6 +43,7 @@
     Lib.apply(prefs, document.documentElement);
     Lib.save(prefs);
     if ('zoom' in patch && isDesktop()) window.electron.setUiZoom(prefs.zoom).catch(() => {});
+    if ('simple' in patch) window.dispatchEvent(new CustomEvent('printventory:simple-mode', { detail: { on: prefs.simple === 'on' } }));
     refreshHints();
   }
 
@@ -78,6 +79,8 @@
 
     root.append(
       el('div', { class: 'dp-body' },
+        el('fieldset', {}, el('legend', { text: 'Simple mode' }),
+          toggle('simple', 'on', 'off', 'Simple mode', 'Shows only the basics: search your models, open one, mark whether you have printed it, and the Farm Cost Calculator. Nothing is deleted. Switch it off, or choose Show everything, to get the full app back.')),
         radioGroup('font', 'Font', 'Some people find these easier to read. The research on fonts and dyslexia is mixed, so try them and keep whichever feels better. Switching back is always one click.', fontOptions, prefs.font),
         radioGroup('textScale', 'Text size', 'Makes writing larger while keeping the layout. For everything at once, use your browser’s zoom (Ctrl and +), or the window size option below in the desktop app.', Lib.TEXT_SCALES.map((v) => ({ value: v, label: `${v}%`, note: v === 100 ? 'Standard' : v === 115 ? 'Larger' : v === 130 ? 'Large' : 'Largest' })), prefs.textScale),
         isDesktop() ? radioGroup('zoom', 'Window size (desktop app)', 'Scales the whole window, buttons and panels included.', Lib.ZOOMS.map((v) => ({ value: v, label: `${v}%` })), prefs.zoom) : null,
@@ -99,7 +102,8 @@
   function refreshHints() { /* the sample re-renders itself through the live classes */ }
 
   function reset() {
-    prefs = Lib.normalise(null);
+    // Reset is about how things look. Quietly switching Simple mode off as well would be a nasty surprise.
+    prefs = Lib.normalise({ simple: prefs.simple });
     Lib.apply(prefs, document.documentElement);
     Lib.save(prefs);
     if (isDesktop()) window.electron.setUiZoom(100).catch(() => {});
@@ -124,6 +128,12 @@
       delete window._electronPendingEvents['open-display-prefs'];
     }
     window.openDisplayPrefs = open;
+    // Simple mode can be switched from a menu while this is open (the native menu isn't blocked by the modal).
+    window.addEventListener('printventory:simple-mode', () => {
+      prefs = Lib.load();
+      const box = $('dp-simple');
+      if (box) box.checked = prefs.simple === 'on';
+    });
     $('display-prefs-button')?.addEventListener('click', open);
     // Desktop app: the window zoom isn't part of the page, so restore it on start.
     if (isDesktop() && prefs.zoom !== 100) window.electron.setUiZoom(prefs.zoom).catch(() => {});
