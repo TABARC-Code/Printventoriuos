@@ -1,10 +1,10 @@
 name: TestDriver.ai Tests
 
+# This fork has no TD_API_KEY secret, so every push and PR went red for a reason nobody could act on.
+# Manual runs only for now. Add the secret in Settings > Secrets and variables > Actions, then put
+# the push and pull_request triggers back (they're in the upstream version of this file).
 on:
-  push:
-    branches: [ main, master ]
-  pull_request:
-    branches: [ main, master ]
+  workflow_dispatch:
 
 jobs:
   test:
