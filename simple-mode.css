@@ -1,0 +1,80 @@
+/*
+ * Simple mode. Everything here is inert until <html> has the class pref-simple
+ * (set by ui-prefs-lib.js from Display and accessibility), so with the default
+ * of "off" the app looks exactly as it always did.
+ *
+ * Presentation only. Nothing is removed and no event handler is touched; the
+ * rules below just take things out of view. They use display:none rather than
+ * opacity or off-screen positioning on purpose: display:none also removes an
+ * element from the tab order and the accessibility tree, so a keyboard or
+ * screen reader user can't land on something they can't see.
+ *
+ * Font sizes live in selectors that don't start with html, because
+ * scripts/gen-ui-prefs-css.js skips those and we do want these to follow the
+ * Text size choice. Run the generator after changing a font-size here.
+ *
+ * The reasoning for what stays is in docs/simple-mode.md.
+ */
+
+/* ---------- The "Simple mode is on" panel: only exists in simple mode ---------- */
+.simple-mode-bar { display: none; }
+html.pref-simple .simple-mode-bar {
+  display: block;
+  margin: 12px 16px;
+  padding: 14px 16px;
+  border: 2px solid var(--primary-accent, #00d4ff);
+  border-radius: 12px;
+  background: var(--surface-raised, #2a2a3c);
+  color: var(--text, #ffffff);
+}
+.simple-mode-bar h2 { margin: 0 0 6px; font-size: 20px; font-weight: 700; line-height: 1.3; }
+.simple-mode-bar p { margin: 0 0 12px; font-size: 16px; line-height: 1.5; color: var(--text, #ffffff); }
+.simple-mode-bar button { width: 100%; min-height: 48px; margin: 0; font-size: 18px; font-weight: 700; }
+
+/* ---------- Sidebar: keep search, sort, folders, print status, scanning, the cost calculator ---------- */
+html.pref-simple .icon-buttons-container .icon-button:not(#farm-cost-button),
+html.pref-simple #scan-stl-home-button,
+html.pref-simple #search-boolean-toolbar,
+html.pref-simple .query-builder-control,
+html.pref-simple .search-notes-toggle,
+html.pref-simple #folder-tree-button,
+html.pref-simple #filter-stack-toggle,
+html.pref-simple #folder-rail-toggle,
+html.pref-simple #preview-size-switcher,
+html.pref-simple #list-view-columns-toolbar-btn {
+  display: none !important;
+}
+
+/* The one filter worth having up front is print status; the rest of "More filters" stays folded away. */
+html.pref-simple .sidebar:not(.filters-expanded) .filter-stack { display: block !important; }
+html.pref-simple #filter-stack > .form-group:not(:has(#printed-select)) { display: none !important; }
+
+/* The Farm Cost Calculator is an icon in the normal layout; in simple mode it says what it is. */
+.icon-buttons-container .simple-label { display: none; }
+html.pref-simple .icon-buttons-container { display: block; }
+html.pref-simple .icon-buttons-container #farm-cost-button {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 12px;
+  width: 100%;
+  height: auto;
+  min-height: 56px;
+  padding: 10px 16px;
+}
+html.pref-simple #farm-cost-button .simple-label { display: inline; }
+#farm-cost-button .simple-label { font-size: 17px; font-weight: 600; text-align: left; }
+
+/* ---------- Model details: name, print status and logging a print. The rest is for the full view. ---------- */
+html.pref-simple #model-details > .form-group:not(.print-lifecycle-group):not(:has(#model-name)),
+html.pref-simple #mobile-details-more {
+  display: none !important;
+}
+
+/* ---------- Web menu bar (Server Mode) and the phone "More" sheet ---------- */
+html.pref-simple .server-menu-group:not([data-simple-keep]),
+html.pref-simple .server-menu-dropdown > .server-menu-item:not([data-simple-keep]),
+html.pref-simple .server-menu-dropdown > .server-menu-separator,
+html.pref-simple .mobile-tool-grid {
+  display: none !important;
+}

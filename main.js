@@ -4044,6 +4044,10 @@ async function createWindow() {
           click: () => mainWindow.webContents.send('open-display-prefs')
         },
         {
+          label: 'Simple Mode',
+          click: () => mainWindow.webContents.send('toggle-simple-mode')
+        },
+        {
           label: 'Parts Manager',
           click: () => mainWindow.webContents.send('open-parts-stock')
         },
@@ -4370,6 +4374,10 @@ function createApplicationMenu() {
         {
           label: 'Display and Accessibility',
           click: () => mainWindow.webContents.send('open-display-prefs')
+        },
+        {
+          label: 'Simple Mode',
+          click: () => mainWindow.webContents.send('toggle-simple-mode')
         },
         {
           label: 'Parts Manager',

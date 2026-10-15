@@ -37,6 +37,7 @@ One warning worth repeating: Server Mode only asks for a login if you set `PRINT
 - **Multi-Edit Mode**: Select and edit multiple models simultaneously for batch operations
 - **Duplicate Detection**: Find duplicate files based on content hash with visual comparison, optionally limited to the current library filters
 - **Display and Accessibility**: Easy-read and dyslexia-friendly font choices, larger text, roomy spacing, a colour-blind safe palette with shapes, high contrast, larger click targets and stronger focus (see the [guide](GUIDE.md))
+- **Simple mode**: an optional, off-by-default view that keeps only the basics (search, open a model, mark print status, Farm Cost Calculator) with a **Show everything** button to get the full app back (see [docs/simple-mode.md](docs/simple-mode.md))
 - **Print Farm Cost Calculator**: Price jobs from each printer's own cost profile, see profit per machine hour, split batches across the farm, and use your logged prints for a real failure rate (see [docs/farm-cost-research.md](docs/farm-cost-research.md))
 - **Print Roulette**: Randomly select models from your collection
 - **AI Tagging**: Automated tag suggestions using AI

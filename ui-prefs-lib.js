@@ -50,7 +50,8 @@
     targets: 'normal',     // normal | large
     focus: 'normal',       // normal | strong
     links: 'normal',       // normal | underline
-    motion: 'system'       // system | reduce
+    motion: 'system',      // system | reduce
+    simple: 'off'          // off | on; Simple mode, see docs/simple-mode.md
   });
 
   const CHOICES = Object.freeze({
@@ -61,8 +62,25 @@
     targets: ['normal', 'large'],
     focus: ['normal', 'strong'],
     links: ['normal', 'underline'],
-    motion: ['system', 'reduce']
+    motion: ['system', 'reduce'],
+    simple: ['off', 'on']
   });
+
+  /**
+   * Simple mode: what stays in the menus. The sidebar and the details panel are
+   * handled in simple-mode.css, because that's where the elements live; menus are
+   * built in JavaScript (and the native ones in main.js), so their list lives here
+   * where a test can see it. Presentation only: every item still exists, it just
+   * isn't shown. Anything not named here is hidden until "Show everything".
+   * The reasoning for each one is in docs/simple-mode.md.
+   */
+  const SIMPLE_MENUS = Object.freeze(['Tools', 'Help']);
+  const SIMPLE_MENU_ITEMS = Object.freeze([
+    'Scan Directory', 'View Entire Library', 'Farm Cost Calculator', 'Display and Accessibility', 'Simple Mode',
+    'Quick Start Guide', 'Keyboard Shortcuts', 'About'
+  ]);
+  const keepsMenu = (label) => SIMPLE_MENUS.includes(String(label || '').trim());
+  const keepsMenuItem = (label) => SIMPLE_MENU_ITEMS.includes(String(label || '').trim());
 
   /**
    * Okabe-Ito colours for the print states, plus the text colour that reads on each.
@@ -107,6 +125,7 @@
     if (p.focus === 'strong') c.push('pref-focus-strong');
     if (p.links === 'underline') c.push('pref-links-underline');
     if (p.motion === 'reduce') c.push('pref-motion-reduce');
+    if (p.simple === 'on') c.push('pref-simple');
     return c;
   }
 
@@ -146,5 +165,5 @@
     } catch (_) { return false; }
   }
 
-  return { STORAGE_KEY, FONTS, TEXT_SCALES, ZOOMS, DEFAULTS, CHOICES, STATUS_PALETTE, normalise, classList, cssVars, isDefault, apply, load, save };
+  return { STORAGE_KEY, FONTS, TEXT_SCALES, ZOOMS, DEFAULTS, CHOICES, STATUS_PALETTE, SIMPLE_MENUS, SIMPLE_MENU_ITEMS, keepsMenu, keepsMenuItem, normalise, classList, cssVars, isDefault, apply, load, save };
 });

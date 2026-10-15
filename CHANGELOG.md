@@ -4,6 +4,7 @@ All notable changes contributed via pull request are documented in this file.
 
 ## [Unreleased]
 
+- New optional **Simple mode** for people who find the full library manager overwhelming. Off by default, so nothing changes for anyone who doesn't switch it on. Turn it on from Display and accessibility ("Aa"), Tools > Simple Mode (desktop and web menu). It shows search, sort, folders, a print status filter, Scan Directory, View Entire Library, the model's name and print status, Log a print, and a labelled Farm Cost Calculator button; everything else is hidden (not removed) until you press **Show everything**. Remembered on this device only. See `docs/simple-mode.md`
 - New **Display and accessibility** settings (the "Aa" button at the top of the sidebar, the Tools menu, or the web menu). Choices apply immediately and are remembered on this device only, so people sharing one library in Server Mode keep their own:
   - Font: Standard (Inter), Easy-read (Atkinson Hyperlegible), Lexend, or the system font. All bundled from Google Fonts with their licences
   - Text size 100, 115, 130 or 150 percent (the sidebar grows with it so dropdowns don't clip), plus window zoom in the desktop app

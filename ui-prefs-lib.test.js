@@ -182,5 +182,46 @@ test('ui-prefs.css uses exactly the palette in the library', () => {
   for (const [n, p] of Object.entries(L.STATUS_PALETTE)) assert.ok(css.includes(p.fill.toUpperCase()), `${n} ${p.fill} missing from ui-prefs.css`);
 });
 
+// ---------- Simple mode ----------
+test('simple mode is off by default and only the exact word "on" turns it on', () => {
+  assert.strictEqual(L.DEFAULTS.simple, 'off');
+  assert.strictEqual(L.normalise(null).simple, 'off');
+  for (const junk of ['yes', 'ON', true, 1, 'true', null, undefined, {}]) assert.strictEqual(L.normalise({ simple: junk }).simple, 'off', String(junk));
+  assert.strictEqual(L.normalise({ simple: 'on' }).simple, 'on');
+});
+
+test('simple mode adds exactly one class, and turning it off adds nothing', () => {
+  assert.deepStrictEqual(L.classList({ simple: 'on' }), ['pref-simple']);
+  assert.deepStrictEqual(L.classList({ simple: 'off' }), []);
+  assert.ok(!L.isDefault({ simple: 'on' }));
+  // it must not disturb the other choices, or the Display dialog would lose them on a toggle
+  const both = L.normalise({ font: 'lexend', textScale: 150, simple: 'on' });
+  assert.deepStrictEqual(L.classList(both).sort(), ['pref-font-lexend', 'pref-simple', 'pref-text-scaled']);
+});
+
+test('simple mode survives a save and load, and old saved prefs without it still load', () => {
+  const store = {}; const storage = { getItem: (k) => (k in store ? store[k] : null), setItem: (k, v) => { store[k] = v; } };
+  assert.ok(L.save({ simple: 'on', font: 'easyread' }, storage));
+  const back = L.load(storage);
+  assert.strictEqual(back.simple, 'on'); assert.strictEqual(back.font, 'easyread');
+  storage.setItem(L.STORAGE_KEY, JSON.stringify({ v: 1, font: 'lexend', textScale: 115 }));   // saved before Simple mode existed
+  const old = L.load(storage);
+  assert.strictEqual(old.simple, 'off'); assert.strictEqual(old.font, 'lexend');
+});
+
+test('the simple mode menu lists are short, and match menus that exist', () => {
+  assert.ok(L.SIMPLE_MENU_ITEMS.length <= 10, 'the whole point is that this list is short');
+  assert.ok(L.keepsMenu('Tools') && L.keepsMenu(' Help '));
+  assert.ok(!L.keepsMenu('Settings') && !L.keepsMenu(undefined));
+  assert.ok(L.keepsMenuItem('Farm Cost Calculator') && L.keepsMenuItem('Simple Mode'));
+  for (const hidden of ['Purge Models', 'Restart Server', 'Backup/Restore', 'De-Dup', 'MCP Server']) assert.ok(!L.keepsMenuItem(hidden), hidden);
+  // a kept label that no menu has any more would silently leave Simple mode without that item
+  const fs2 = require('fs');
+  const renderer = fs2.readFileSync(require('path').join(__dirname, 'renderer.js'), 'utf8');
+  const main = fs2.readFileSync(require('path').join(__dirname, 'main.js'), 'utf8');
+  for (const label of L.SIMPLE_MENU_ITEMS) assert.ok(renderer.includes(`label: '${label}'`), `${label} is not in the web menu (renderer.js)`);
+  for (const label of L.SIMPLE_MENU_ITEMS.filter((l) => l !== 'Scan Directory' && l !== 'View Entire Library')) assert.ok(main.includes(`label: '${label}'`), `${label} is not in the native menu (main.js)`);
+});
+
 console.log(`\n${passed} passed, ${failed} failed`);
 process.exit(failed ? 1 : 0);

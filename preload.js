@@ -321,6 +321,7 @@ contextBridge.exposeInMainWorld('electron', {
       'open-printer-management',
       'open-farm-cost',
       'open-display-prefs',
+      'toggle-simple-mode',
       'open-parts-stock',
       'open-purge-models',
       'open-metadata-editor',
